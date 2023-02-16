@@ -1,13 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { HeaderBlock } from "./style";
 
 const Header = () => {
   return (
-    <div>
-      <Link to="/">홈</Link>
-      <Link to="/natureinfo">환경 정보</Link>
-      <Link to="/write">글쓰기</Link>
-    </div>
+    <HeaderBlock>
+      <NavLink to="/">홈</NavLink>
+      <NavLink to="/natureinfo">환경 정보</NavLink>
+      <NavLink to="/write">글쓰기</NavLink>
+    </HeaderBlock>
   );
 };
 
