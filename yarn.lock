@@ -1223,6 +1223,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@gdsc-dju/styled-components-theme@^0.0.53":
+  version "0.0.53"
+  resolved "https://registry.yarnpkg.com/@gdsc-dju/styled-components-theme/-/styled-components-theme-0.0.53.tgz#f1a46424e583b1914167ca462743f1f9fc46bf34"
+  integrity sha512-w9Q8+5R0RH+IylcgPTULbZ6cpO8++Xk49AZeGN0K6pui4jTtlPqaDE0o4XR5Ea3yaKRSQfqD4u0xN++XQ3omnQ==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.8.tgz"
