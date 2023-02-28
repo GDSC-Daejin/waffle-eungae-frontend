@@ -7,8 +7,8 @@ import { ContainerInner, LayoutContainer } from "./styles/layout";
 function App() {
   return (
     <LayoutContainer>
+      <Header />
       <ContainerInner>
-        <Header />
         <Routing />
       </ContainerInner>
     </LayoutContainer>
