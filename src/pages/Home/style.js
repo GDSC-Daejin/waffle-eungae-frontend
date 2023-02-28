@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { assetColors } from "../../styles/assetColor";
 import { fontSizes } from "../../styles/fontSize";
 
-export const RecentPost = styled.div`
+export const RecentWrapper = styled.div`
   width: 500px;
   height: 300px;
   background: ${assetColors.grey100}; //영역 확인용
@@ -15,24 +15,18 @@ export const RecentPost = styled.div`
     margin-block-end: 0.7em;
   }
 `;
-export const Post = styled.div`
+
+export const CategoryWrapper = styled.div`
+  width: 720px;
+  background: ${assetColors.grey100}; //영역 확인용
   display: flex;
-  .category {
-    display: block;
-    height: 27px;
-    margin: 0 2px 0 0;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    font-size: ${fontSizes.textM};
-    line-height: 25px;
-    padding: 0 6px;
+  flex-wrap: wrap;
+  .topic {
+    font-size: ${fontSizes.titleS};
   }
-  .title {
-    font-size: ${fontSizes.textL};
-    margin-left: 6px;
-    line-height: 25px;
-  }
-  & + & {
-    margin-top: 5px;
+  hr {
+    color: #ccc;
+    margin-block-start: 0.7em;
+    margin-block-end: 0.7em;
   }
 `;
