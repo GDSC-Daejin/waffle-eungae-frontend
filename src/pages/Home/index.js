@@ -1,6 +1,6 @@
 import React from "react";
-import CategoryList from "../../components/postList/CategoryList";
-import RecentList from "../../components/postList/RecentList";
+import CategoryList from "../../components/CategoryList";
+import RecentList from "../../components/RecentList";
 import { RecentWrapper, CategoryWrapper } from "./style";
 
 const categorys = [
@@ -11,7 +11,7 @@ const categorys = [
 const datas = [
   {
     post_id: "1",
-    title: "first",
+    title: "firstssssssssssssssssssssssssssssssssssssssssssss",
     content: "ffffff",
     create_date: "2023-3-1",
     member_id: "asdf",
@@ -45,25 +45,82 @@ const datas = [
     category_id: "2",
     status: "false",
   },
+  {
+    post_id: "4",
+    title: "fourth",
+    content: "ssssssssss",
+    create_date: "2023-3-2",
+    member_id: "asdf",
+    category_id: "2",
+    status: "false",
+  },
+  {
+    post_id: "4",
+    title: "fourth",
+    content: "ssssssssss",
+    create_date: "2023-3-2",
+    member_id: "asdf",
+    category_id: "2",
+    status: "false",
+  },
+  {
+    post_id: "4",
+    title: "fourth",
+    content: "ssssssssss",
+    create_date: "2023-3-2",
+    member_id: "asdf",
+    category_id: "2",
+    status: "false",
+  },
+  {
+    post_id: "4",
+    title: "fourth",
+    content: "ssssssssss",
+    create_date: "2023-3-2",
+    member_id: "asdf",
+    category_id: "2",
+    status: "false",
+  },
+  {
+    post_id: "4",
+    title: "fourth",
+    content: "ssssssssss",
+    create_date: "2023-3-2",
+    member_id: "asdf",
+    category_id: "2",
+    status: "false",
+  },
 ];
 
 const Home = () => {
+  let selectedDatas = [];
   return (
     <div>
       <RecentWrapper>
         <div className="topic">최신글</div>
-        <hr></hr>
+        <hr />
         <RecentList datas={datas} />
       </RecentWrapper>
-      <br></br>
+      <br />
+      <br />
+      <br />
       <CategoryWrapper>
         {categorys.map((category) => {
-          const seletedDatas = datas.filter(
-            (data) => data.category_id === category.category_id
-          );
+          selectedDatas = [];
+          datas.filter((data) => {
+            if (
+              data.category_id === category.category_id &&
+              selectedDatas.length < 5
+            ) {
+              selectedDatas.push(data);
+              return true;
+            }
+            return false;
+          });
+
           return (
             <CategoryList
-              datas={seletedDatas}
+              datas={selectedDatas}
               category={category.category_name}
             />
           );

@@ -1,5 +1,6 @@
 import React from "react";
-import { ListBlock, Post } from "./style";
+import LikeIcon from "../../assets/LikeIcon";
+import { IconBlock, ListBlock, Post } from "./style";
 
 const RecentList = ({ datas }) => {
   return (
@@ -10,6 +11,10 @@ const RecentList = ({ datas }) => {
             <div className="category">{data.category_id}</div>
             {/*카테고리 아이디를 넣어서 카테고리 이름을 반환하는 훅을 만들어서 사용하면 될 듯?*/}
             <div className="title">{data.title}</div>
+            <IconBlock>
+              <LikeIcon />
+              <div className="number">11</div>
+            </IconBlock>
           </Post>
         );
       })}

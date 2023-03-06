@@ -17,7 +17,7 @@ export const RecentWrapper = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 720px;
+  width: 740px;
   background: ${assetColors.grey100}; //영역 확인용
   display: flex;
   flex-wrap: wrap;

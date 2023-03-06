@@ -3,11 +3,14 @@ import { fontSizes } from "../../styles/fontSize";
 
 export const ListBlock = styled.div`
   width: 350px;
-  height: 230px;
+  height: 250px;
   margin-right: 10px;
+  overflow: hidden;
 `;
+
 export const Post = styled.div`
   display: flex;
+  align-items: center;
   .category {
     display: block;
     height: 27px;
@@ -22,8 +25,18 @@ export const Post = styled.div`
     font-size: ${fontSizes.textL};
     margin-left: 6px;
     line-height: 25px;
+    width: 280px;
   }
   & + & {
     margin-top: 10px;
+  }
+`;
+
+export const IconBlock = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  .number {
+    font-size: ${fontSizes.textS};
   }
 `;
