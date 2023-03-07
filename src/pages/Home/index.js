@@ -1,7 +1,12 @@
 import React from "react";
 import CategoryList from "../../components/CategoryList";
 import RecentList from "../../components/RecentList";
-import { RecentWrapper, CategoryWrapper } from "./style";
+import {
+  HomeWrapper,
+  RecentWrapper,
+  CategoryWrapper,
+  UserLanking,
+} from "./style";
 
 const categorys = [
   { category_id: "1", category_name: "안녕" },
@@ -90,20 +95,27 @@ const datas = [
     category_id: "2",
     status: "false",
   },
+  {
+    post_id: "2",
+    title: "second",
+    content: "ssssssssss",
+    create_date: "2023-3-2",
+    member_id: "asdf",
+    category_id: "3",
+    status: "false",
+  },
 ];
 
 const Home = () => {
   let selectedDatas = [];
   return (
-    <div>
+    <HomeWrapper>
       <RecentWrapper>
         <div className="topic">최신글</div>
         <hr />
         <RecentList datas={datas} />
       </RecentWrapper>
-      <br />
-      <br />
-      <br />
+      <UserLanking>as</UserLanking>
       <CategoryWrapper>
         {categorys.map((category) => {
           selectedDatas = [];
@@ -126,7 +138,7 @@ const Home = () => {
           );
         })}
       </CategoryWrapper>
-    </div>
+    </HomeWrapper>
   );
 };
 

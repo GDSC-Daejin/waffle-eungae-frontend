@@ -2,15 +2,21 @@ import styled from "styled-components";
 import { fontSizes } from "../../styles/fontSize";
 
 export const ListBlock = styled.div`
-  width: 350px;
-  height: 250px;
-  margin-right: 10px;
+  height: 360px;
   overflow: hidden;
 `;
 
 export const Post = styled.div`
   display: flex;
+  & + & {
+    margin-top: 10px;
+  }
+`;
+
+export const StringBlock = styled.div`
+  display: flex;
   align-items: center;
+  width: 100%;
   .category {
     display: block;
     height: 27px;
@@ -25,10 +31,6 @@ export const Post = styled.div`
     font-size: ${fontSizes.textL};
     margin-left: 6px;
     line-height: 25px;
-    width: 280px;
-  }
-  & + & {
-    margin-top: 10px;
   }
 `;
 
@@ -36,6 +38,7 @@ export const IconBlock = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+  width: 40px;
   .number {
     font-size: ${fontSizes.textS};
   }

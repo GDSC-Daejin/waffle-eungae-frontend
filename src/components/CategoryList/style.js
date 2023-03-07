@@ -4,11 +4,12 @@ import { fontSizes } from "../../styles/fontSize";
 export const ListBlock = styled.div`
   width: 320px;
   height: 250px;
-  margin-right: 40px;
+  padding: 0 20px;
   overflow: hidden;
   .topic {
-    font-size: ${fontSizes.textXxl};
-    font-weight: 500;
+    font-size: ${fontSizes.textXl};
+    font-weight: 600;
+    color: #444;
     padding-left: 7px;
   }
 `;
