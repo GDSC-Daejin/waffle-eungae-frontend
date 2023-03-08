@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
@@ -19,16 +19,17 @@ import "@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-tab
 import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
 // uml plugin
 import uml from "@toast-ui/editor-plugin-uml";
+import axios from "axios";
 
 const PostWrite = () => {
   const [content, setContent] = useState();
   const editorRef = useRef();
   const handleChangeEditor = () => {
-    const editorContent = editorRef.current.getInstance().getHTML();
+    const editorContent = editorRef.current.getInstance().getMarkdown();
     setContent(editorContent);
   };
 
-  const onUploadImage = async (blob, callback) => {
+  /*const onUploadImage = async (blob, callback) => {
     const url = await uploadImage(blob);
     callback(url, "alt text");
     return false;
@@ -53,7 +54,31 @@ const PostWrite = () => {
       .fail(function (err) {
         alert(err);
       });
-  };
+  };*/
+
+  /*useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook("addImageBlobHook");
+      editorRef.current
+        .getInstance()
+        .addHook("addImageBlobHook", (blob, callback) => {
+          (async () => {
+            let formData = new FormData();
+            formData.append("file", blob);
+
+            axios.defaults.withCredentials = true;
+            const { data: url } = await axios.post(`ßimage.do`, formData, {
+              header: { "content-type": "multipart/formdata" },
+            });
+            callback(url, "alt text");
+          })();
+
+          return false;
+        });
+    }
+
+    return () => {};
+  }, [editorRef]);*/
 
   return (
     <>

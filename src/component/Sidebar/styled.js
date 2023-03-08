@@ -23,9 +23,10 @@ export const SidebarMenu = styled(motion.aside)`
 export const MenuToggleIconWrapper = styled.div`
   display: flex;
   border: none;
-  position: absolute;
+  position: fixed;
   top: 24px;
   left: 55px;
+  z-index: 1009;
 `;
 export const GrayBox = styled(motion.div)`
   display: flex;

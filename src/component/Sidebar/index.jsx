@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SidebarWrapper,
   SidebarInner,
@@ -14,28 +14,20 @@ import MenuToggleIcon from "../MenuToggleIcon";
 
 export const sidebarMenuData = [
   {
-    title: "ALL",
+    title: "홈",
     subtitle: "all",
   },
   {
-    title: "Frontend",
+    title: "소개",
     subtitle: "frontend",
   },
   {
-    title: "Backend",
-    subtitle: "backend",
+    title: "커뮤니티",
+    subtitle: ["카테고리1", "카테고리2", "카테고리3"],
   },
   {
-    title: "Android",
-    subtitle: "android",
-  },
-  {
-    title: "Design",
-    subtitle: "design",
-  },
-  {
-    title: "Common",
-    subtitle: "common",
+    title: "마이페이지",
+    subtitle: ["내 게시글", "회원정보"],
   },
 ];
 
@@ -47,6 +39,20 @@ const Sidebar = () => {
     setMenu(!menu);
     console.log(menu);
   };
+
+  useEffect(() => {
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+
+    if (!menu) {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    }
+  }, [menu]);
 
   return (
     <>
