@@ -1,5 +1,6 @@
 import React from "react";
 import LikeIcon from "../../assets/LikeIcon";
+import CommentIcon from "../../assets/CommentIcon";
 import { IconBlock, ListBlock, Post, StringBlock } from "./style";
 const RecentList = ({ datas }) => {
   return (
@@ -14,7 +15,11 @@ const RecentList = ({ datas }) => {
             </StringBlock>
             <IconBlock>
               <LikeIcon />
-              <div className="number">11</div>
+              <div className="number">&nbsp;11</div>
+            </IconBlock>
+            <IconBlock>
+              <CommentIcon />
+              <div className="number">&nbsp;33</div>
             </IconBlock>
           </Post>
         );

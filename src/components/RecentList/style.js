@@ -3,7 +3,7 @@ import { fontSizes } from "../../styles/fontSize";
 
 export const ListBlock = styled.div`
   height: 360px;
-  overflow: hidden;
+  overflow: hidden; //개수 제한두고 이거 바꾸기
 `;
 
 export const Post = styled.div`
@@ -19,12 +19,14 @@ export const StringBlock = styled.div`
   width: 100%;
   .category {
     display: block;
-    height: 27px;
+    height: 22px;
+    line-height: 20px;
     margin: 0 2px 0 0;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     box-sizing: border-box;
-    font-size: ${fontSizes.textM};
-    line-height: 25px;
+    border-radius: 2px;
+    font-size: ${fontSizes.textS};
+    color: #666;
     padding: 0 6px;
   }
   .title {
@@ -41,5 +43,9 @@ export const IconBlock = styled.div`
   width: 40px;
   .number {
     font-size: ${fontSizes.textS};
+    width: 22px;
+  }
+  & + & {
+    margin-left: 12px;
   }
 `;

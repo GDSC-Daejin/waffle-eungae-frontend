@@ -6,6 +6,9 @@ export const HomeWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+  @media screen and (max-width: 1130px) {
+    flex-direction: column;
+  }
 `;
 export const RecentWrapper = styled.div`
   width: 680px;
@@ -22,19 +25,15 @@ export const RecentWrapper = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 720px;
   display: flex;
   flex-wrap: wrap;
   margin-top: 20px;
-  .topic {
-    font-size: ${fontSizes.titleS};
-  }
-  hr {
-    color: #ccc;
-    margin-block-start: 0.7em;
-    margin-block-end: 0.7em;
+  width: 720px;
+  @media screen and (max-width: 800px) {
+    width: 100%;
   }
 `;
+
 export const UserLanking = styled.div`
   width: 300px;
   background-color: ${assetColors.grey100};

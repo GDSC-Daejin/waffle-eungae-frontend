@@ -6,6 +6,7 @@ const CategoryList = ({ datas, category }) => {
   return (
     <ListBlock>
       <div className="topic">{category}</div>
+      <div className="more">ejqhrl</div>
       <hr />
       {datas.map((data) => {
         return (
@@ -13,7 +14,7 @@ const CategoryList = ({ datas, category }) => {
             <div className="title">{data.title}</div>
             <IconBlock>
               <LikeIcon />
-              <div className="number">&nbsp;11</div>
+              <div className="number">&nbsp;22</div>
             </IconBlock>
           </Post>
         );

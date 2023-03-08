@@ -16,7 +16,7 @@ const categorys = [
 const datas = [
   {
     post_id: "1",
-    title: "firstssssssssssssssssssssssssssssssssssssssssssss",
+    title: "firstssssssssssssssssssss",
     content: "ffffff",
     create_date: "2023-3-1",
     member_id: "asdf",
