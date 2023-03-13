@@ -1,5 +1,5 @@
 import React from "react";
-import { postListData } from "../../api/Mocks/postListData";
+import { postListData } from "../../apis/Mocks/postListData";
 import { PostDetailContainer, PostWrapper } from "../PostDetail/styled";
 import {
   PostBox,
@@ -13,14 +13,15 @@ import {
 } from "./styled";
 import LikeIcon from "../../assets/icons/LikeIcon";
 import CommentIcon from "../../assets/icons/CommentIcon";
+import CategoryMenu from "../../component/CategoryMenu";
 
 const MyPost = () => {
   return (
     <PostDetailContainer>
       <PostWrapper>
+        <CategoryMenu />
         {postListData.map((data, id) => (
-          <PostBox>
-            <MyPostTitle key={id}>{data.post.title}</MyPostTitle>
+          <PostBox key={id}>
             <MyPostContent>{data.post.content}</MyPostContent>
             <MyPostAuthor>Eung-ae</MyPostAuthor>
             <PostInformationWrapper>

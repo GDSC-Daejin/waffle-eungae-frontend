@@ -20,13 +20,28 @@ import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
 // uml plugin
 import uml from "@toast-ui/editor-plugin-uml";
 import axios from "axios";
+import CategoryMenu from "../../component/CategoryMenu";
 
 const PostWrite = () => {
   const [content, setContent] = useState();
+  const [category, setCategory] = useState("");
+  const [postData, setPostData] = useState([
+    {
+      postId: 0,
+      content: "",
+      title: "",
+    },
+  ]);
+
   const editorRef = useRef();
   const handleChangeEditor = () => {
-    const editorContent = editorRef.current.getInstance().getMarkdown();
+    const editorContent = editorRef.current.getInstance().getHTML();
     setContent(editorContent);
+  };
+
+  // post put 기능
+  const handleSubmit = () => {
+    axios.post(`http://localhost:8080/post/${categoryId}`);
   };
 
   /*const onUploadImage = async (blob, callback) => {
@@ -83,6 +98,7 @@ const PostWrite = () => {
   return (
     <>
       <div>post write</div>
+      <CategoryMenu />
       <Editor
         initialValue="hello react editor world!"
         previewStyle="vertical"
