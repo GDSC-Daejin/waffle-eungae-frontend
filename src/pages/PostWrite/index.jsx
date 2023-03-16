@@ -21,29 +21,54 @@ import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
 import uml from "@toast-ui/editor-plugin-uml";
 import axios from "axios";
 import CategoryMenu from "../../component/CategoryMenu";
+import { useRecoilValue } from "recoil";
+import { currentCategoryId } from "../../store/category";
+import { PostTitle } from "./styled";
+import { DetailPostData } from "../../type";
+import { Viewer } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 
 const PostWrite = () => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState("");
-  const [postData, setPostData] = useState([
-    {
-      postId: 0,
-      content: "",
-      title: "",
-    },
-  ]);
+  const [detailPostData, setDetailPostData] = useState(DetailPostData);
+  console.log(detailPostData);
+  const [postData, setPostData] = useState({
+    postId: 0,
+    content: "",
+    title: "",
+  });
+
+  const categoryId = useRecoilValue(currentCategoryId);
+  console.log(categoryId);
 
   const editorRef = useRef();
-  const handleChangeEditor = () => {
-    const editorContent = editorRef.current.getInstance().getHTML();
-    setContent(editorContent);
+
+  const setEditorValue = () => {
+    const editorContent = editorRef.current.getInstance().getMarkdown();
+    setPostData(() => {
+      return { ...postData, content: editorContent };
+    });
   };
 
   // post put 기능
   const handleSubmit = () => {
-    axios.post(`http://localhost:8080/post/${categoryId}`);
+    axios
+      .post(`http://localhost:8080/post/${categoryId}`, postData)
+      .then((res) => alert("성공"), console.log(postData))
+      .catch((err) => console.log(err));
+  };
+  const initPostData = async () => {
+    const response = await axios.get("http://localhost:8080/post");
+    if (response.status === 200) {
+      setDetailPostData(response.data.content[0]);
+      console.log(response.data);
+    }
   };
 
+  useEffect(() => {
+    initPostData();
+  }, []);
   /*const onUploadImage = async (blob, callback) => {
     const url = await uploadImage(blob);
     callback(url, "alt text");
@@ -94,18 +119,27 @@ const PostWrite = () => {
 
     return () => {};
   }, [editorRef]);*/
-
+  console.log(`${detailPostData.content}`);
   return (
     <>
       <div>post write</div>
-      <CategoryMenu />
+      <CategoryMenu onClick={setCategory} categoryName={category} />
+      <PostTitle
+        placeholder="제목을 입력하세요."
+        value={postData.title}
+        onChange={(e) => {
+          setPostData(() => {
+            return { ...postData, title: e.target.value };
+          });
+        }}
+      />
       <Editor
-        initialValue="hello react editor world!"
+        initialValue="내용을 적어주세요."
         previewStyle="vertical"
         height="400px"
         initialEditType="wysiwyg"
         ref={editorRef}
-        onChange={handleChangeEditor}
+        onChange={setEditorValue}
         plugins={[
           colorSyntax,
           [codeSyntaxHighlight, { highlighter: Prism }],
@@ -122,18 +156,22 @@ const PostWrite = () => {
         }}*/
         useCommandShortcut={true}
       />
-      <div id="toastUIEditor">
+      <button onClick={handleSubmit}>글쓰기</button>
+      {/*<div id="toastUIEditor">
         <h1>Toast UI Editor Example</h1>
         <div id="button">
           <button className="btn_save" onClick={handleChangeEditor}>
             Save
           </button>
         </div>
-      </div>
+      </div>*/}
       <div>
         <h2>Result</h2>
-        <textarea className="result" value={content} readOnly="readOnly" />
+        <div>{detailPostData.content}</div>
       </div>
+
+      <Viewer initialValue={`${detailPostData.content}`} />
+      <div>asdfasfddafasdfadsfasfasdf</div>
     </>
   );
 };

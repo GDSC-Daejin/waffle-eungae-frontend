@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CategoryMenuWrapper, CategoryMenuContainer, Category } from "./styled";
 import axios from "axios";
-import { getCategory } from "../../apis";
+import { useRecoilState } from "recoil";
+import { categoryId, categoryStore } from "../../store/category";
 
 export const categories = [
   { id: 0, category: "카테고리1" },
@@ -11,19 +12,19 @@ export const categories = [
   { id: 4, category: "카테고리5" },
 ];
 
-const CategoryMenu = () => {
+const CategoryMenu = ({ onClick, categoryName }) => {
   const [category, setCategory] = useState({
     categoryId: 0,
     categoryName: "",
   });
   const [categoryList, setCategoryList] = useState([category]);
+  const [currentCategoryId, setCurrentCategoryId] = useRecoilState(categoryId);
 
   const initCategoryData = async () => {
     const response = await axios.get("http://localhost:8080/");
     if (response.status === 200) {
       setCategoryList(response.data);
     }
-    console.log(categoryList);
   };
 
   // 카테고리 추가하기
@@ -50,11 +51,20 @@ const CategoryMenu = () => {
       <CategoryMenuContainer>
         <CategoryMenuWrapper>
           {categoryList.map((data, id) => (
-            <Category key={id}>{data.categoryName}</Category>
+            <Category
+              onClick={() => {
+                onClick(data.categoryName);
+                setCurrentCategoryId(data.categoryId);
+              }}
+              clicked={data.categoryName === categoryName}
+              key={id}
+            >
+              {data.categoryName}
+            </Category>
           ))}
         </CategoryMenuWrapper>
       </CategoryMenuContainer>
-      {/*<input
+      <input
         value={category.categoryName}
         onChange={(e) =>
           setCategory(() => {
@@ -62,7 +72,7 @@ const CategoryMenu = () => {
           })
         }
       />
-      <button onClick={addCategoryHandler}>추가하기</button>*/}
+      <button onClick={addCategoryHandler}>추가하기</button>
     </>
   );
 };

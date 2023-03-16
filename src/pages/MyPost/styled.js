@@ -10,6 +10,7 @@ export const PostBox = styled.div`
 export const MyPostTitle = styled.div`
   font-weight: bold;
   word-wrap: break-word;
+  margin-bottom: 7px;
 `;
 export const MyPostContent = styled.div`
   font-size: 14px;

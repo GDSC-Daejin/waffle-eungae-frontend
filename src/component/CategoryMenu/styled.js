@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CategoryMenuContainer = styled.div`
   width: 100%;
@@ -9,6 +9,11 @@ export const CategoryMenuWrapper = styled.div`
   display: flex;
 `;
 export const Category = styled.div`
-  border-bottom: 1px solid black;
   margin: 0 12px;
+  cursor: pointer;
+  ${(props) =>
+    props.clicked &&
+    css`
+      border-bottom: 1px solid black;
+    `}
 `;

@@ -9,7 +9,7 @@ const Layout = () => {
     <>
       <Sidebar />
       <Routes>
-        <Route path={"/*"} element={<PostDetail />} />
+        <Route path={"/post/:postId"} element={<PostDetail />} />
         <Route path={"/post/write"} element={<PostWrite />} />
         <Route path={"/user/post"} element={<MyPost />} />
       </Routes>
