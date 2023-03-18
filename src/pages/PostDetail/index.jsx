@@ -53,7 +53,6 @@ const PostDetail = () => {
     const response = await axios.get(`http://localhost:8080/comment/${postId}`);
     console.log(response.data);
     if (response.status === 200) {
-      //setDetailPostData(response.data);
       setCommentList(response.data);
     }
   };
