@@ -13,7 +13,6 @@ import {
   PostIcon,
   LikeIconWrapper,
   Like,
-  CommentListWrapper,
   CommentWrapper,
   CommentAuthor,
   Comment,
@@ -21,6 +20,7 @@ import {
   StackInputButtonWrapper,
   StackInput,
   StackButton,
+  CommentSection,
 } from "./styled";
 import PostEditIcon from "../../assets/icons/PostEditIcon";
 import PostTrashIcon from "../../assets/icons/PostTrashIcon";
@@ -124,7 +124,7 @@ const PostDetail = () => {
         <LikeIcon />
         <Like>11</Like>
       </LikeIconWrapper>
-      <CommentListWrapper>
+      <CommentSection>
         {commentList.map((data, id) => (
           <CommentWrapper key={id}>
             <CommentAuthor>Eung-ae</CommentAuthor>
@@ -132,7 +132,7 @@ const PostDetail = () => {
             <CommentDate>{data.createDate.substring(0, 10)}</CommentDate>
           </CommentWrapper>
         ))}
-      </CommentListWrapper>
+      </CommentSection>
       <StackInputButtonWrapper>
         {/*TODO값 입력하기*/}
         <StackInput

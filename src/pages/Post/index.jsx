@@ -19,16 +19,17 @@ import CategoryMenu from "../../component/CategoryMenu";
 import { DetailPostData } from "../../type";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ContainerInner, LayoutContainer } from "../../styles/layout";
 import {
-  BestMembers,
-  FilteredPosts,
-  PostContainer,
-  PostWrapper2,
-  SideInformation,
-} from "./styled";
+  ArticleWrapper,
+  ContainerInner,
+  LayoutContainer,
+  MainArticle,
+  SideArticle,
+} from "../../styles/layout";
+import { BestMembers, FilteredPosts, PostContainer } from "./styled";
 import Post from "./index";
 import PostThumbnail from "../../assets/PostThumbnail";
+import FilteredList from "../../component/FilteredList";
 
 const MyPost = () => {
   const [postList, setPostList] = useState([DetailPostData]);
@@ -53,8 +54,8 @@ const MyPost = () => {
     <LayoutContainer>
       <ContainerInner>
         <CategoryMenu />
-        <PostContainer>
-          <PostWrapper2>
+        <ArticleWrapper>
+          <MainArticle>
             {postList.map((data, id) => (
               <PostBox key={id}>
                 <PostThumbnailWrapper>
@@ -88,12 +89,13 @@ const MyPost = () => {
                 </PostTextWrapper>
               </PostBox>
             ))}
-          </PostWrapper2>
-          <SideInformation>
-            <BestMembers></BestMembers>
-            <FilteredPosts></FilteredPosts>
-          </SideInformation>
-        </PostContainer>
+          </MainArticle>
+          <SideArticle>
+            {/*<BestMembers></BestMembers>
+            <FilteredPosts></FilteredPosts>*/}
+            <FilteredList />
+          </SideArticle>
+        </ArticleWrapper>
       </ContainerInner>
     </LayoutContainer>
   );

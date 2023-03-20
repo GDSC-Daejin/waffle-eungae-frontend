@@ -18,3 +18,18 @@ export const ContainerInner = styled.div`
   margin: 0 auto;
   padding: 0 20px;
 `;
+export const ArticleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const MainArticle = styled.article`
+  margin-right: 20px;
+  box-sizing: inherit;
+  flex: 1;
+  min-width: 600px;
+`;
+export const SideArticle = styled.div`
+  width: 384px;
+  min-width: 250px;
+  margin: 24px 0;
+`;

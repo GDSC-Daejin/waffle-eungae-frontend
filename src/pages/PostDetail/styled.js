@@ -90,7 +90,7 @@ export const Like = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const CommentListWrapper = styled.section`
+export const CommentSection = styled.section`
   display: flex;
   flex-direction: column;
   padding: 25px 0;
