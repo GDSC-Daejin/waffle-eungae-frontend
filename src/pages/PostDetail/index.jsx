@@ -60,7 +60,7 @@ const PostDetail = () => {
   const initPostData = async () => {
     const response = await axios.get("http://localhost:8080/post");
     if (response.status === 200) {
-      setDetailPostData(response.data.content[0]);
+      setDetailPostData(response.data.content[1]);
       console.log(response.data);
     }
   };

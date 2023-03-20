@@ -165,11 +165,28 @@ const PostWrite = () => {
           </button>
         </div>
       </div>*/}
+      <div className="form-group row">
+        <label htmlFor="inputFile" className="col-sm-2 col-form-label">
+          <strong>첨부 파일</strong>
+        </label>
+        <div className="col-sm-10">
+          <div className="custom-file" id="inputFile">
+            <input
+              name="file"
+              type="file"
+              className="custom-file-input"
+              id="customFile"
+            />
+            <label className="custom-file-label" htmlFor="customFile">
+              파일을 선택해 주세요.
+            </label>
+          </div>
+        </div>
+      </div>
       <div>
         <h2>Result</h2>
         <div>{detailPostData.content}</div>
       </div>
-
       <Viewer initialValue={`${detailPostData.content}`} />
       <div>asdfasfddafasdfadsfasfasdf</div>
     </>

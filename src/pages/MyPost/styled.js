@@ -1,16 +1,30 @@
 import styled from "styled-components";
 
 export const PostBox = styled.div`
-  width: 100%;
-  margin: 0 20px;
   padding: 24px 0;
   border-bottom: 1px solid #eee;
   word-break: break-all;
+  display: flex;
+`;
+export const PostThumbnailWrapper = styled.div`
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  border-radius: 10px;
+`;
+export const PostTextWrapper = styled.div`
+  flex: 1 1 0%;
+  padding-right: 10px;
+  max-width: calc(100% - 98px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 `;
 export const MyPostTitle = styled.div`
   font-weight: bold;
   word-wrap: break-word;
-  margin-bottom: 7px;
+  font-size: 16px;
 `;
 export const MyPostContent = styled.div`
   font-size: 14px;
@@ -18,13 +32,15 @@ export const MyPostContent = styled.div`
 export const MyPostAuthor = styled.div`
   width: 100%;
   color: #222;
-  margin-top: 16px;
+  margin-top: 12px;
+  font-size: 14px;
 `;
 export const PostInformationWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: 7px;
+  align-items: center;
 `;
 export const PostLeftInformation = styled.div`
   display: flex;
@@ -41,6 +57,6 @@ export const PostIconWrapper = styled.div`
   }
 `;
 export const PostInformation = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   color: #8b95a1;
 `;
