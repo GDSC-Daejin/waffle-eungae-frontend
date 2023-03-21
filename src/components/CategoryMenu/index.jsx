@@ -21,7 +21,7 @@ const CategoryMenu = ({ onClick, categoryName }) => {
   const [currentCategoryId, setCurrentCategoryId] = useRecoilState(categoryId);
 
   const initCategoryData = async () => {
-    const response = await axios.get("http://eung-ae-back.kro.kr/");
+    const response = await axios.get("https://eung-ae-back.kro.kr/");
     if (response.status === 200) {
       setCategoryList(response.data);
     }
