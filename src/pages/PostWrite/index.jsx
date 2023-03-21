@@ -54,12 +54,12 @@ const PostWrite = () => {
   // post put 기능
   const handleSubmit = () => {
     axios
-      .post(`http://localhost:8080/post/${categoryId}`, postData)
+      .post(`http://eung-ae-back.kro.kr/post/${categoryId}`, postData)
       .then((res) => alert("성공"), console.log(postData))
       .catch((err) => console.log(err));
   };
   const initPostData = async () => {
-    const response = await axios.get("http://localhost:8080/post");
+    const response = await axios.get("http://eung-ae-back.kro.kr/post");
     if (response.status === 200) {
       setDetailPostData(response.data.content[0]);
       console.log(response.data);

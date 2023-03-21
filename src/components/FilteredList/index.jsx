@@ -18,7 +18,7 @@ const FilteredList = () => {
   const [postList, setPostList] = useState([DetailPostData]);
 
   const initData = async () => {
-    const response = await axios.get("http://localhost:8080/post?size=5");
+    const response = await axios.get("http://eung-ae-back.kro.kr/post?size=5");
     if (response.status === 200) {
       setPostList(response.data.content);
       console.log(response.data);

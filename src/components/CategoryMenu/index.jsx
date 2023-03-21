@@ -21,7 +21,7 @@ const CategoryMenu = ({ onClick, categoryName }) => {
   const [currentCategoryId, setCurrentCategoryId] = useRecoilState(categoryId);
 
   const initCategoryData = async () => {
-    const response = await axios.get("http://localhost:8080/");
+    const response = await axios.get("http://eung-ae-back.kro.kr/");
     if (response.status === 200) {
       setCategoryList(response.data);
     }
@@ -31,7 +31,7 @@ const CategoryMenu = ({ onClick, categoryName }) => {
   const addCategoryHandler = () => {
     if (category.categoryName !== "") {
       axios
-        .post("http://localhost:8080/", category)
+        .post("http://eung-ae-back.kro.kr/", category)
         .then((res) => {
           alert("성공");
           setCategory(() => {

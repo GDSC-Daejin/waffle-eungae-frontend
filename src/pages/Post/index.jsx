@@ -39,7 +39,7 @@ const MyPost = () => {
 
   // 리스트 데이터 받아오기
   const initPostData = async () => {
-    const response = await axios.get("http://localhost:8080/post");
+    const response = await axios.get("http://http://eung-ae-back.kro.kr/post");
     console.log(response);
     if (response.status === 200) {
       setPostList(response.data.content);

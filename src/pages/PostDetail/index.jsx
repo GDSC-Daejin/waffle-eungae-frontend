@@ -50,7 +50,9 @@ const PostDetail = () => {
   const [comment, setComment] = useState(DetailCommentData);
 
   const initComment = async () => {
-    const response = await axios.get(`http://localhost:8080/comment/${postId}`);
+    const response = await axios.get(
+      `http://eung-ae-back.kro.kr/comment/${postId}`
+    );
     console.log(response.data);
     if (response.status === 200) {
       setCommentList(response.data);
@@ -58,7 +60,7 @@ const PostDetail = () => {
   };
 
   const initPostData = async () => {
-    const response = await axios.get("http://localhost:8080/post");
+    const response = await axios.get("http://eung-ae-back.kro.kr/post");
     if (response.status === 200) {
       setDetailPostData(response.data.content[1]);
       console.log(response.data);
@@ -67,7 +69,7 @@ const PostDetail = () => {
 
   const addCommentHandler = async () => {
     await axios
-      .post(`http://localhost:8080/comment/${postId}`, comment)
+      .post(`http://eung-ae-back.kro.kr/comment/${postId}`, comment)
       .then(
         (res) => alert("성공"),
         setComment(() => {
