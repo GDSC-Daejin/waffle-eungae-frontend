@@ -18,7 +18,7 @@ const FilteredList = () => {
   const [postList, setPostList] = useState([DetailPostData]);
 
   const initData = async () => {
-    const response = await axios.get("http://localhost:8080/post");
+    const response = await axios.get("http://localhost:8080/post?size=5");
     if (response.status === 200) {
       setPostList(response.data.content);
       console.log(response.data);
@@ -36,18 +36,16 @@ const FilteredList = () => {
       <Title>인기 게시글</Title>
       <ListWrapper>
         {postList.map((data, id) => (
-          <>
-            <ListItem>
-              <ContentWrapper>
-                <Number>{i++}</Number>
-                <Content key={id}>{data.title}</Content>
-              </ContentWrapper>
-              <PostIconWrapper>
-                <LikeIcon size="small" />
-                <Like>11</Like>
-              </PostIconWrapper>
-            </ListItem>
-          </>
+          <ListItem key={id}>
+            <ContentWrapper>
+              <Number>{i++}</Number>
+              <Content>{data.title}</Content>
+            </ContentWrapper>
+            <PostIconWrapper>
+              <LikeIcon />
+              <Like>11</Like>
+            </PostIconWrapper>
+          </ListItem>
         ))}
       </ListWrapper>
     </ListSection>

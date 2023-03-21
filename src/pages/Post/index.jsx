@@ -21,8 +21,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   ArticleWrapper,
-  ContainerInner,
-  LayoutContainer,
+  ContainerInners,
+  LayoutContainers,
   MainArticle,
   SideArticle,
 } from "../../styles/layout";
@@ -40,6 +40,7 @@ const MyPost = () => {
   // 리스트 데이터 받아오기
   const initPostData = async () => {
     const response = await axios.get("http://localhost:8080/post");
+    console.log(response);
     if (response.status === 200) {
       setPostList(response.data.content);
       console.log(response.data);
@@ -51,8 +52,8 @@ const MyPost = () => {
   }, []);
 
   return (
-    <LayoutContainer>
-      <ContainerInner>
+    <LayoutContainers>
+      <ContainerInners>
         <CategoryMenu />
         <ArticleWrapper>
           <MainArticle>
@@ -96,8 +97,8 @@ const MyPost = () => {
             <FilteredList />
           </SideArticle>
         </ArticleWrapper>
-      </ContainerInner>
-    </LayoutContainer>
+      </ContainerInners>
+    </LayoutContainers>
   );
 };
 
