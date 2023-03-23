@@ -11,7 +11,7 @@ const Layout = () => {
       <Sidebar />
       <Routes>
         <Route path={"/post/:postId"} element={<PostDetail />} />
-        <Route path={"/post/write"} element={<PostWrite />} />
+        <Route path={"/post/write/:postId"} element={<PostWrite />} />
         <Route path={"/user/post"} element={<MyPost />} />
         <Route path={"/post/*"} element={<Post />} />
       </Routes>

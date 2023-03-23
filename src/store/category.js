@@ -1,12 +1,12 @@
 import { atom, selector } from "recoil";
 
-export const categoryId = atom({
-  key: "categoryId",
-  default: 0,
+export const categoryIdStore = atom({
+  key: "categoryIdStore",
+  default: 1,
 });
-export const currentCategoryId = selector({
-  key: "currentCategoryId",
+export const currentCategoryIdStore = selector({
+  key: "currentCategoryIdStore",
   get: ({ get }) => {
-    return get(categoryId);
+    return get(categoryIdStore);
   },
 });
