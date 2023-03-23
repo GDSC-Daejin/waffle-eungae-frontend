@@ -3,6 +3,7 @@ import { CategoryMenuWrapper, CategoryMenuContainer, Category } from "./styled";
 import axios from "axios";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { categoryIdStore, currentCategoryIdStore } from "../../store/category";
+import CategorySkeleton from "../Skeleton/CategorySkeleton";
 
 export const categories = [
   { id: 0, category: "카테고리1" },
@@ -12,7 +13,8 @@ export const categories = [
   { id: 4, category: "카테고리5" },
 ];
 
-const CategoryMenu = ({ onClick, categoryName, setPost }) => {
+const CategoryMenu = ({ onClick, categoryData, setPost }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState({
     categoryId: 0,
     categoryName: "",
@@ -28,6 +30,8 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
       setCategoryList(response.data);
     }
     console.log(response);
+    //setCategoryId(1);
+    setIsLoading(false);
   };
 
   // 카테고리 추가하기
@@ -69,35 +73,39 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
 
   return (
     <>
-      <CategoryMenuContainer>
-        <CategoryMenuWrapper>
-          {categoryList.map((data, id) => (
-            <Category
-              onClick={() => {
-                onClick(data.categoryName);
-                setCategoryId(data.categoryId);
-                setPost && setPost(data.categoryId);
-              }}
-              isClicked={data.categoryId === currentCategoryId}
-              key={id}
-            >
-              {data.categoryName}
-            </Category>
-          ))}
-        </CategoryMenuWrapper>
-      </CategoryMenuContainer>
-      {/*<input
-        value={category.categoryName}
-        onChange={(e) =>
-          setCategory(() => {
-            return { ...category, categoryName: e.target.value };
-          })
-        }
-        style={{ marginTop: "20px" }}
-      />
-      <button onClick={addCategoryHandler}>추가하기</button>
-      <button onClick={removeCategoryHandler}>삭제하기</button>
-      <button onClick={updateCategoryHandler}>수정하기</button>*/}
+      {!isLoading ? (
+        <>
+          <CategoryMenuWrapper>
+            {categoryList.map((data, id) => (
+              <Category
+                onClick={() => {
+                  onClick(data.categoryName);
+                  setCategoryId(data.categoryId);
+                  setPost && setPost(data.categoryId);
+                }}
+                isClicked={data.categoryId === currentCategoryId}
+                key={id}
+              >
+                {data.categoryName}
+              </Category>
+            ))}
+          </CategoryMenuWrapper>
+          <input
+            value={category.categoryName}
+            onChange={(e) =>
+              setCategory(() => {
+                return { ...category, categoryName: e.target.value };
+              })
+            }
+            style={{ marginTop: "20px" }}
+          />
+          <button onClick={addCategoryHandler}>추가하기</button>
+          <button onClick={removeCategoryHandler}>삭제하기</button>
+          <button onClick={updateCategoryHandler}>수정하기</button>
+        </>
+      ) : (
+        <CategorySkeleton />
+      )}
     </>
   );
 };

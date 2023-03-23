@@ -26,7 +26,7 @@ import CommentList from "../../components/CommentList";
 const PostDetail = () => {
   const { postId } = useParams();
   console.log(postId);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);
   const navigate = useNavigate();
@@ -48,9 +48,10 @@ const PostDetail = () => {
           fileName: response.data.fileName,
           filePath: response.data.filePath,
           member: response.data.member,
+          likeCount: response.data.likeCount,
         };
       });
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 
@@ -60,39 +61,45 @@ const PostDetail = () => {
 
   useEffect(() => {
     initDetailPostData();
-  }, [detailPostData]);
+  }, []);
 
-  return isLoading ? (
-    <PostDetailContainer>
-      <PostWrapper>
-        <article>
-          <PostHead>
-            <Category>{detailPostData.category.categoryName}</Category>
-            <PostTitle>{detailPostData.title}</PostTitle>
-            <PostAuthorWrapper>
-              <PostAuthor>{detailPostData.member.name}</PostAuthor>
-              <PostDate>{detailPostData.createDate.substring(0, 10)}</PostDate>
-              <PostIconWrapper>
-                <PostIcon onClick={() => navigate(`/post/edit/${postId}`)}>
-                  <PostEditIcon />
-                </PostIcon>
-                <PostIcon>
-                  <PostTrashIcon />
-                </PostIcon>
-              </PostIconWrapper>
-            </PostAuthorWrapper>
-          </PostHead>
-          <Viewer initialValue={detailPostData.content} />
-        </article>
-      </PostWrapper>
-      <LikeIconWrapper onClick={addLikeHandler}>
-        <LikeIcon />
-        <Like>11</Like>
-      </LikeIconWrapper>
-      <CommentList postId={postId} />
-    </PostDetailContainer>
-  ) : (
-    <div>로딩 중</div>
+  return (
+    <>
+      {!isLoading ? (
+        <PostDetailContainer>
+          <PostWrapper>
+            <article>
+              <PostHead>
+                <Category>{detailPostData.category.categoryName}</Category>
+                <PostTitle>{detailPostData.title}</PostTitle>
+                <PostAuthorWrapper>
+                  <PostAuthor>{detailPostData.member.name}</PostAuthor>
+                  <PostDate>
+                    {detailPostData.createDate.substring(0, 10)}
+                  </PostDate>
+                  <PostIconWrapper>
+                    <PostIcon onClick={() => navigate(`/post/edit/${postId}`)}>
+                      <PostEditIcon />
+                    </PostIcon>
+                    <PostIcon>
+                      <PostTrashIcon />
+                    </PostIcon>
+                  </PostIconWrapper>
+                </PostAuthorWrapper>
+              </PostHead>
+              <Viewer initialValue={detailPostData.content} />
+            </article>
+          </PostWrapper>
+          <LikeIconWrapper onClick={addLikeHandler}>
+            <LikeIcon />
+            <Like>{detailPostData.likeCount}</Like>
+          </LikeIconWrapper>
+          <CommentList postId={postId} />
+        </PostDetailContainer>
+      ) : (
+        <div>로딩 중</div>
+      )}
+    </>
   );
 };
 

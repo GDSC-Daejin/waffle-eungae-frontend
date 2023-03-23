@@ -18,10 +18,10 @@ const PostEdit = () => {
   const { postId } = useParams();
   console.log(postId);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [category, setCategory] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);
+  const [categoryData, setCategoryData] = useState("");
   const [categoryId, setCategoryId] = useRecoilState(categoryIdStore);
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   console.log(currentCategoryId);
@@ -66,8 +66,8 @@ const PostEdit = () => {
           filePath: response.data.filePath,
         };
       });
-      setCategoryId(response.data.category.categoryId);
-      setIsLoading(true);
+      setCategoryId(2);
+      setIsLoading(false);
     }
   };
 
@@ -79,13 +79,13 @@ const PostEdit = () => {
   console.log(`${detailPostData.content}`);
   return (
     <>
-      {isLoading && (
+      {!isLoading ? (
         <>
           <img src={detailPostData.filePath} />
           <CategoryMenu
-            onClick={setCategory}
+            onClick={setCategoryData}
             setPost={setPost}
-            categoryName={category}
+            categoryData={categoryData}
           />
           <PostTitle
             /*placeholder={postId ? detailPostData.title : "제목을 입력하세요."}*/
@@ -132,6 +132,8 @@ const PostEdit = () => {
             </div>
           </div>
         </>
+      ) : (
+        <div>로딩 중</div>
       )}
     </>
   );
