@@ -29,7 +29,10 @@ export const HeaderBlock = styled.div`
     border-radius: 5px;
   }
 `;
-
+export const Logo = styled.img`
+  height: 40px;
+  margin-right: 20px;
+`;
 export const Empty = styled.div`
   width: 20%;
 `;
