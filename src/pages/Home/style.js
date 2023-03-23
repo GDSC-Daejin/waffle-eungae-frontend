@@ -8,19 +8,8 @@ export const HomeWrapper = styled.div`
   margin: 0 auto;
   @media screen and (max-width: 1130px) {
     flex-direction: column;
-  }
-`;
-export const RecentWrapper = styled.div`
-  width: 680px;
-  padding: 0 20px;
-  margin: 0 30px 30px 0;
-  .topic {
-    font-size: ${fontSizes.titleS};
-  }
-  hr {
-    color: #ccc;
-    margin-block-start: 0.7em;
-    margin-block-end: 0.7em;
+    margin: 0 auto;
+    max-width: 720px;
   }
 `;
 
@@ -29,12 +18,10 @@ export const CategoryWrapper = styled.div`
   flex-wrap: wrap;
   margin-top: 20px;
   width: 720px;
+  @media screen and (max-width: 1130px) {
+    margin: 30px auto 0 auto;
+  }
   @media screen and (max-width: 800px) {
     width: 100%;
   }
-`;
-
-export const UserLanking = styled.div`
-  width: 300px;
-  background-color: ${assetColors.grey100};
 `;

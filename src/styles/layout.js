@@ -10,9 +10,8 @@ export const LayoutContainer = styled.div`
   flex: 1;
 `;
 export const ContainerInner = styled.div`
-  width: 1050px;
   height: 100%;
-  max-width: calc(100% - 48px);
+  max-width: 1050px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 auto;
 `;
