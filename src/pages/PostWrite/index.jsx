@@ -76,6 +76,17 @@ const PostWrite = () => {
   }, []);*/
 
   //console.log(`${detailPostData.content}`);
+
+  const fileInput = React.useRef(null);
+
+  const handleButtonClick = (e) => {
+    fileInput.current.click();
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.files);
+  };
+
   return (
     <>
       <div>post write</div>
@@ -85,7 +96,7 @@ const PostWrite = () => {
         value={post.title}
         onChange={(e) => {
           setPost(() => {
-            return { ...post, title: e.target.value };
+            return { ...post, title: e.target.value[0] };
           });
         }}
       />
@@ -106,24 +117,94 @@ const PostWrite = () => {
         useCommandShortcut={true}
       />
       <button onClick={handleSubmit}>글쓰기</button>
-      <div className="form-group row">
-        <label htmlFor="inputFile" className="col-sm-2 col-form-label">
-          <strong>첨부 파일</strong>
-        </label>
-        <div className="col-sm-10">
-          <div className="custom-file" id="inputFile">
-            <input
-              name="file"
-              type="file"
-              className="custom-file-input"
-              id="customFile"
-            />
-            <label className="custom-file-label" htmlFor="customFile">
-              파일을 선택해 주세요.
+      {/*<header th:insert="common/header.html"></header>*/}
+      <div className="container">
+        <form action="/post" method="post" encType="multipart/form-data">
+          <div className="form-group row">
+            <label htmlFor="inputTitle" className="col-sm-2 col-form-label">
+              <strong>제목</strong>
             </label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                name="title"
+                className="form-control"
+                id="inputTitle"
+              />
+            </div>
           </div>
-        </div>
+          <div className="form-group row">
+            <label htmlFor="inputAuthor" className="col-sm-2 col-form-label">
+              <strong>작성자</strong>
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                name="author"
+                className="form-control"
+                id="inputAuthor"
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputContent" className="col-sm-2 col-form-label">
+              <strong>내용</strong>
+            </label>
+            <div className="col-sm-10">
+              <textarea
+                type="text"
+                name="content"
+                className="form-control"
+                id="inputContent"
+              ></textarea>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputFile" className="col-sm-2 col-form-label">
+              <strong>첨부 파일</strong>
+            </label>
+            <div className="col-sm-10">
+              <div className="custom-file" id="inputFile">
+                <input
+                  name="file"
+                  type="file"
+                  className="custom-file-input"
+                  id="customFile"
+                />
+                <label className="custom-file-label" htmlFor="customFile">
+                  파일을 선택해 주세요.
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-auto mr-auto"></div>
+            <div className="col-auto">
+              <input
+                className="btn btn-primary"
+                type="submit"
+                role="button"
+                value="글쓰기"
+              />
+            </div>
+          </div>
+        </form>
       </div>
+      <button onClick={handleButtonClick}>파일 업로드</button>
+      <input
+        type="file"
+        ref={fileInput}
+        onChange={handleChange}
+        style={{ display: "none" }}
+      />
+      {/*<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+      <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+      <div>
+        $('.custom-file-input').on('change', function () {
+        var fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+      });
+      </div>*/}
     </>
   );
 };
