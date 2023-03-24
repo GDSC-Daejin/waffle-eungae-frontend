@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { postListData } from "../../apis/Mocks/postListData";
-import { PostDetailContainer, PostWrapper } from "../PostDetail/styled";
 import {
   PostBox,
   PostInformation,
@@ -8,7 +6,6 @@ import {
   PostInformationWrapper,
   PostLeftInformation,
   MyPostTitle,
-  MyPostContent,
   MyPostAuthor,
   PostThumbnailWrapper,
   PostTextWrapper,
@@ -16,7 +13,6 @@ import {
 import LikeIcon from "../../assets/icons/LikeIcon";
 import CommentIcon from "../../assets/icons/CommentIcon";
 import CategoryMenu from "../../components/CategoryMenu";
-import { PostData } from "../../type";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -26,15 +22,12 @@ import {
   MainArticle,
   SideArticle,
 } from "../../styles/layout";
-import { BestMembers, FilteredPosts, PostContainer } from "./styled";
-import Post from "./index";
 import PostThumbnail from "../../assets/PostThumbnail";
 import FilteredList from "../../components/FilteredList";
 import { useRecoilValue } from "recoil";
 import { currentCategoryIdStore } from "../../store/category";
-import Pagination from "react-js-pagination";
-import "./pagebar.css";
 import PostSkeleton from "../../components/Skeleton/PostSkeleton";
+import PageBar from "../../components/PageBar";
 
 const MyPost = () => {
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
@@ -54,7 +47,7 @@ const MyPost = () => {
   // 리스트 데이터 받아오기
   const initPostData = async () => {
     const response = await axios.get(
-      `https://eung-ae-back.kro.kr/post/categoryPost/${currentCategoryId}`
+      `https://eung-ae-back.kro.kr/categoryPost/${currentCategoryId}`
     );
     console.log(response);
     if (response.status === 200) {
@@ -109,16 +102,7 @@ const MyPost = () => {
                   </PostTextWrapper>
                 </PostBox>
               ))}
-              <Pagination
-                activePage={page}
-                itemsCountPerPage={7}
-                totalItemsCount={count - 1}
-                pageRangeDisplayed={3}
-                prevPageText={"<"}
-                nextPageText={">"}
-                onChange={handlePageChange}
-                className={"pagination"}
-              />
+              <PageBar page={page} count={count} onChange={setPage} />
             </MainArticle>
             <SideArticle>
               {/*<BestMembers></BestMembers>

@@ -13,15 +13,19 @@ import {
   PostIcon,
   LikeIconWrapper,
   Like,
+  CommentSection,
+  CommentWrapper,
+  PostContent,
 } from "./styled";
 import PostEditIcon from "../../assets/icons/PostEditIcon";
 import PostTrashIcon from "../../assets/icons/PostTrashIcon";
 import LikeIcon from "../../assets/icons/LikeIcon";
 import axios from "axios";
-import { DetailPostData } from "../../type";
+import { DetailCommentListData, DetailPostData } from "../../type";
 import { Viewer } from "@toast-ui/react-editor";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentList from "../../components/CommentList";
+import CommentCard from "../../components/CommentCard";
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -29,11 +33,13 @@ const PostDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);
+  const [commentList, setCommentList] = useState(DetailCommentListData);
+
   const navigate = useNavigate();
 
   const initDetailPostData = async () => {
     const response = await axios.get(
-      `https://eung-ae-back.kro.kr/post/detail/${postId}`
+      `https://eung-ae-back.kro.kr/detail/${postId}`
     );
     console.log(response);
     if (response.status === 200) {
@@ -55,16 +61,34 @@ const PostDetail = () => {
     }
   };
 
+  const initComment = async () => {
+    const response = await axios.get(`https://eung-ae-back.kro.kr/${postId}`);
+    console.log(response.data);
+    if (response.status === 200) {
+      setCommentList(response.data);
+    }
+  };
+
   const addLikeHandler = async () => {
-    await axios.post(`https://eung-ae-back.kro.kr/post/${postId}/like`);
+    await axios.post(`https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`);
+  };
+
+  const getInfo = async () => {
+    await axios
+      .get(`https://eung-ae-back.kro.kr/login`)
+      .then((res) => console.log(res.data));
   };
 
   useEffect(() => {
     initDetailPostData();
+    initComment();
+    console.log(`댓글 : ${commentList}`);
   }, []);
 
   return (
     <>
+      <a href={`https://eung-ae-back.kro.kr/login`}>로그인</a>
+      <div onClick={getInfo}>가져오기</div>
       {!isLoading ? (
         <PostDetailContainer>
           <PostWrapper>
@@ -95,6 +119,13 @@ const PostDetail = () => {
             <Like>{detailPostData.likeCount}</Like>
           </LikeIconWrapper>
           <CommentList postId={postId} />
+          {/*<CommentSection>
+            {commentList.map((data, id) => (
+              <CommentWrapper key={id}>
+                <CommentCard commentList={commentList} />
+              </CommentWrapper>
+            ))}
+          </CommentSection>*/}
         </PostDetailContainer>
       ) : (
         <div>로딩 중</div>

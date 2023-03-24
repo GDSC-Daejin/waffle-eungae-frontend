@@ -30,8 +30,8 @@ import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 const PostWrite = () => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState("");
-  const [detailPostData, setDetailPostData] = useState(DetailPostData);
-  console.log(detailPostData);
+  /* const [detailPostData, setDetailPostData] = useState(DetailPostData);
+  console.log(detailPostData);*/
   const [post, setPost] = useState({
     content: "",
     title: "",
@@ -55,24 +55,27 @@ const PostWrite = () => {
   // post put 기능
   const handleSubmit = () => {
     axios
-      .post(`https://eung-ae-back.kro.kr/post/${currentCategoryId}`, post)
+      .post(
+        `https://eung-ae-back.kro.kr/api/v1/post/${currentCategoryId}`,
+        post
+      )
       .then((res) => alert("성공"), console.log(post))
       .catch((err) => console.log(err));
   };
-  const initDetailPostData = async () => {
+  /*const initDetailPostData = async () => {
     const response = await axios.get(`https://eung-ae-back.kro.kr/post`);
     console.log(response);
     if (response.status === 200) {
       setDetailPostData(response.data.content[0]);
       console.log(response.data);
     }
-  };
+  };*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     initDetailPostData();
-  }, []);
+  }, []);*/
 
-  console.log(`${detailPostData.content}`);
+  //console.log(`${detailPostData.content}`);
   return (
     <>
       <div>post write</div>

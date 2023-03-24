@@ -28,7 +28,6 @@ const PostEdit = () => {
   const [post, setPost] = useState({
     content: detailPostData.content,
     categoryId: currentCategoryId,
-    postId: postId,
   });
 
   const editorRef = useRef();
@@ -43,14 +42,17 @@ const PostEdit = () => {
   // post put 기능
   const handleSubmit = () => {
     axios
-      .patch(`https://eung-ae-back.kro.kr/post/${detailPostData.postId}`, post)
+      .patch(
+        `https://eung-ae-back.kro.kr/api/v1/post/${detailPostData.postId}`,
+        post
+      )
       .then((res) => alert("성공"), console.log(post))
       .catch((err) => console.log(err));
     console.log(post);
   };
   const initDetailPostData = async () => {
     const response = await axios.get(
-      `https://eung-ae-back.kro.kr/post/detail/${postId}`
+      `https://eung-ae-back.kro.kr/detail/${postId}`
     );
     console.log(response);
     if (response.status === 200) {

@@ -13,7 +13,7 @@ export const categories = [
   { id: 4, category: "카테고리5" },
 ];
 
-const CategoryMenu = ({ onClick, categoryData, setPost }) => {
+const CategoryMenu = ({ onClick, categoryName, setPost }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState({
     categoryId: 0,
@@ -25,7 +25,7 @@ const CategoryMenu = ({ onClick, categoryData, setPost }) => {
   console.log(currentCategoryId);
 
   const initCategoryData = async () => {
-    const response = await axios.get("https://eung-ae-back.kro.kr/");
+    const response = await axios.get("https://eung-ae-back.kro.kr/category");
     if (response.status === 200) {
       setCategoryList(response.data);
     }
@@ -38,7 +38,7 @@ const CategoryMenu = ({ onClick, categoryData, setPost }) => {
   const addCategoryHandler = () => {
     category.categoryName !== "" &&
       axios
-        .post(`https://eung-ae-back.kro.kr/`, category)
+        .post(`https://eung-ae-back.kro.kr/api/v1/category`, category)
         .then((res) => {
           alert("성공");
           setCategory(() => {
@@ -51,7 +51,10 @@ const CategoryMenu = ({ onClick, categoryData, setPost }) => {
   const updateCategoryHandler = () => {
     category.categoryName !== "" &&
       axios
-        .patch(`https://eung-ae-back.kro.kr/${currentCategoryId}`, category)
+        .patch(
+          `https://eung-ae-back.kro.kr/api/v1/category${currentCategoryId}`,
+          category
+        )
         .then((res) => {
           alert("성공");
           setCategory(() => {
@@ -63,7 +66,9 @@ const CategoryMenu = ({ onClick, categoryData, setPost }) => {
 
   const removeCategoryHandler = async () => {
     axios
-      .delete(`https://eung-ae-back.kro.kr/${currentCategoryId}`)
+      .delete(
+        `https://eung-ae-back.kro.kr/api/v1/category/${currentCategoryId}`
+      )
       .then((res) => alert("삭제 완료"));
   };
 

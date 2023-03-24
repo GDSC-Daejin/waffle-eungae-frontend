@@ -17,9 +17,7 @@ const CommentList = ({ postId }) => {
   const [comment, setComment] = useState(DetailCommentData);
 
   const initComment = async () => {
-    const response = await axios.get(
-      `https://eung-ae-back.kro.kr/comment/${postId}`
-    );
+    const response = await axios.get(`https://eung-ae-back.kro.kr/${postId}`);
     console.log(response.data);
     if (response.status === 200) {
       setCommentList(response.data);
@@ -28,7 +26,7 @@ const CommentList = ({ postId }) => {
 
   const addCommentHandler = async () => {
     await axios
-      .post(`https://eung-ae-back.kro.kr/comment/${postId}`, comment)
+      .post(`https://eung-ae-back.kro.kr/api/v1/${postId}`, comment)
       .then(
         (res) => alert("성공"),
         setComment(() => {
