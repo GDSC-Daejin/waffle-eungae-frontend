@@ -75,9 +75,7 @@ const PostDetail = () => {
 
   const getInfo = async () => {
     await axios
-      .get(
-        `https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/login/oauth2/code/google`
-      )
+      .get(`https://eung-ae-back.kro.kr/login`)
       .then((res) => console.log(res.data));
   };
 
@@ -85,6 +83,7 @@ const PostDetail = () => {
     initDetailPostData();
     initComment();
     console.log(`댓글 : ${commentList}`);
+    alert(document.cookie);
   }, []);
 
   return (

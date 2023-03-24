@@ -14,7 +14,12 @@ import { DetailCommentData, DetailCommentListData } from "../../type";
 
 const CommentList = ({ postId }) => {
   const [commentList, setCommentList] = useState(DetailCommentListData);
-  const [comment, setComment] = useState(DetailCommentData);
+  const [comment, setComment] = useState({
+    commentId: 0,
+    content: "",
+    createDate: "",
+    postId: postId,
+  });
 
   const initComment = async () => {
     const response = await axios.get(`https://eung-ae-back.kro.kr/${postId}`);
