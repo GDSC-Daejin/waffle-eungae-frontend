@@ -66,9 +66,6 @@ export const IconBlock = styled.div`
   display: flex;
   align-items: center;
   margin: 0 10px 0 5px;
-  svg {
-    width: 18px;
-  }
   .number {
     font-size: ${fontSizes.textS};
     width: 25px;

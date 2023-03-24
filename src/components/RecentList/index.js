@@ -1,6 +1,6 @@
 import React from "react";
 import LikeIcon from "../../assets/LikeIcon";
-import CommentIcon from "../../assets/CommentIcon";
+import EyeIcon from "../../assets/EyeIcon";
 import { IconBlock, ListBlock, Post, StringBlock, Upper } from "./style";
 const RecentList = ({ datas }) => {
   return (
@@ -22,7 +22,7 @@ const RecentList = ({ datas }) => {
               <div className="number">&nbsp;{data.likeCount}</div>
             </IconBlock>
             <IconBlock>
-              <CommentIcon />
+              <EyeIcon width="16px" />
               <div className="number">&nbsp;{data.viewCount}</div>
             </IconBlock>
           </Post>
