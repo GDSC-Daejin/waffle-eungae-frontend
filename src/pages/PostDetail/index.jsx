@@ -13,27 +13,33 @@ import {
   PostIcon,
   LikeIconWrapper,
   Like,
+  CommentSection,
+  CommentWrapper,
+  PostContent,
 } from "./styled";
 import PostEditIcon from "../../assets/icons/PostEditIcon";
 import PostTrashIcon from "../../assets/icons/PostTrashIcon";
 import LikeIcon from "../../assets/icons/LikeIcon";
 import axios from "axios";
-import { DetailPostData } from "../../type";
+import { DetailCommentListData, DetailPostData } from "../../type";
 import { Viewer } from "@toast-ui/react-editor";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentList from "../../components/CommentList";
+import CommentCard from "../../components/CommentCard";
 
 const PostDetail = () => {
   const { postId } = useParams();
   console.log(postId);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);
+  const [commentList, setCommentList] = useState(DetailCommentListData);
+
   const navigate = useNavigate();
 
   const initDetailPostData = async () => {
     const response = await axios.get(
-      `https://eung-ae-back.kro.kr/post/detail/${postId}`
+      `https://eung-ae-back.kro.kr/detail/${postId}`
     );
     console.log(response);
     if (response.status === 200) {
@@ -48,51 +54,89 @@ const PostDetail = () => {
           fileName: response.data.fileName,
           filePath: response.data.filePath,
           member: response.data.member,
+          likeCount: response.data.likeCount,
         };
       });
-      setIsLoading(true);
+      setIsLoading(false);
+    }
+  };
+
+  const initComment = async () => {
+    const response = await axios.get(`https://eung-ae-back.kro.kr/${postId}`);
+    console.log(response.data);
+    if (response.status === 200) {
+      setCommentList(response.data);
     }
   };
 
   const addLikeHandler = async () => {
-    await axios.post(`https://eung-ae-back.kro.kr/post/${postId}/like`);
+    await axios.post(`https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`);
+  };
+
+  const getInfo = async () => {
+    await axios
+      .get(
+        `https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/login/oauth2/code/google`
+      )
+      .then((res) => console.log(res.data));
   };
 
   useEffect(() => {
     initDetailPostData();
-  }, [detailPostData]);
+    initComment();
+    console.log(`댓글 : ${commentList}`);
+  }, []);
 
-  return isLoading ? (
-    <PostDetailContainer>
-      <PostWrapper>
-        <article>
-          <PostHead>
-            <Category>{detailPostData.category.categoryName}</Category>
-            <PostTitle>{detailPostData.title}</PostTitle>
-            <PostAuthorWrapper>
-              <PostAuthor>{detailPostData.member.name}</PostAuthor>
-              <PostDate>{detailPostData.createDate.substring(0, 10)}</PostDate>
-              <PostIconWrapper>
-                <PostIcon onClick={() => navigate(`/post/edit/${postId}`)}>
-                  <PostEditIcon />
-                </PostIcon>
-                <PostIcon>
-                  <PostTrashIcon />
-                </PostIcon>
-              </PostIconWrapper>
-            </PostAuthorWrapper>
-          </PostHead>
-          <Viewer initialValue={detailPostData.content} />
-        </article>
-      </PostWrapper>
-      <LikeIconWrapper onClick={addLikeHandler}>
-        <LikeIcon />
-        <Like>11</Like>
-      </LikeIconWrapper>
-      <CommentList postId={postId} />
-    </PostDetailContainer>
-  ) : (
-    <div>로딩 중</div>
+  return (
+    <>
+      <a
+        href={`https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/login/oauth2/code/google`}
+      >
+        로그인
+      </a>
+      <div onClick={getInfo}>가져오기</div>
+      {!isLoading ? (
+        <PostDetailContainer>
+          <PostWrapper>
+            <article>
+              <PostHead>
+                <Category>{detailPostData.category.categoryName}</Category>
+                <PostTitle>{detailPostData.title}</PostTitle>
+                <PostAuthorWrapper>
+                  <PostAuthor>{detailPostData.member.name}</PostAuthor>
+                  <PostDate>
+                    {detailPostData.createDate.substring(0, 10)}
+                  </PostDate>
+                  <PostIconWrapper>
+                    <PostIcon onClick={() => navigate(`/post/edit/${postId}`)}>
+                      <PostEditIcon />
+                    </PostIcon>
+                    <PostIcon>
+                      <PostTrashIcon />
+                    </PostIcon>
+                  </PostIconWrapper>
+                </PostAuthorWrapper>
+              </PostHead>
+              <Viewer initialValue={detailPostData.content} />
+            </article>
+          </PostWrapper>
+          <LikeIconWrapper onClick={addLikeHandler}>
+            <LikeIcon />
+            <Like>{detailPostData.likeCount}</Like>
+          </LikeIconWrapper>
+          <CommentList postId={postId} />
+          {/*<CommentSection>
+            {commentList.map((data, id) => (
+              <CommentWrapper key={id}>
+                <CommentCard commentList={commentList} />
+              </CommentWrapper>
+            ))}
+          </CommentSection>*/}
+        </PostDetailContainer>
+      ) : (
+        <div>로딩 중</div>
+      )}
+    </>
   );
 };
 

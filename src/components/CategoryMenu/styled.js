@@ -1,10 +1,7 @@
 import styled, { css } from "styled-components";
 
-export const CategoryMenuContainer = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-`;
 export const CategoryMenuWrapper = styled.div`
+  width: 100%;
   display: flex;
 `;
 export const Category = styled.div`

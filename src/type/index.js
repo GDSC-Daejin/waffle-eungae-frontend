@@ -26,6 +26,7 @@ export const DetailPostData = {
     memberId: 0,
     name: "",
   },
+  likeCount: 0,
 };
 export const DetailCommentListData = [
   {

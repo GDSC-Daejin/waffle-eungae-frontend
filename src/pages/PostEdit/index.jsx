@@ -18,17 +18,16 @@ const PostEdit = () => {
   const { postId } = useParams();
   console.log(postId);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [category, setCategory] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);
+  const [categoryData, setCategoryData] = useState("");
   const [categoryId, setCategoryId] = useRecoilState(categoryIdStore);
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   console.log(currentCategoryId);
   const [post, setPost] = useState({
     content: detailPostData.content,
     categoryId: currentCategoryId,
-    postId: postId,
   });
 
   const editorRef = useRef();
@@ -43,14 +42,17 @@ const PostEdit = () => {
   // post put 기능
   const handleSubmit = () => {
     axios
-      .patch(`https://eung-ae-back.kro.kr/post/${detailPostData.postId}`, post)
+      .patch(
+        `https://eung-ae-back.kro.kr/api/v1/post/${detailPostData.postId}`,
+        post
+      )
       .then((res) => alert("성공"), console.log(post))
       .catch((err) => console.log(err));
     console.log(post);
   };
   const initDetailPostData = async () => {
     const response = await axios.get(
-      `https://eung-ae-back.kro.kr/post/detail/${postId}`
+      `https://eung-ae-back.kro.kr/detail/${postId}`
     );
     console.log(response);
     if (response.status === 200) {
@@ -66,8 +68,8 @@ const PostEdit = () => {
           filePath: response.data.filePath,
         };
       });
-      setCategoryId(response.data.category.categoryId);
-      setIsLoading(true);
+      setCategoryId(2);
+      setIsLoading(false);
     }
   };
 
@@ -79,13 +81,13 @@ const PostEdit = () => {
   console.log(`${detailPostData.content}`);
   return (
     <>
-      {isLoading && (
+      {!isLoading ? (
         <>
           <img src={detailPostData.filePath} />
           <CategoryMenu
-            onClick={setCategory}
+            onClick={setCategoryData}
             setPost={setPost}
-            categoryName={category}
+            categoryData={categoryData}
           />
           <PostTitle
             /*placeholder={postId ? detailPostData.title : "제목을 입력하세요."}*/
@@ -132,6 +134,8 @@ const PostEdit = () => {
             </div>
           </div>
         </>
+      ) : (
+        <div>로딩 중</div>
       )}
     </>
   );
