@@ -8,17 +8,18 @@ import PostDetail from "./pages/PostDetail";
 import PostWrite from "./pages/PostWrite";
 import MyPost from "./pages/MyPost";
 import Post from "./pages/Post";
+import PostEdit from "./pages/PostEdit";
 
 const Routing = () => {
   return (
     <>
-      <Sidebar />
       <Routes>
         <Route path={"/*"} element={<Home />} />
         <Route path={"/natureinfo"} element={<NatureInfo />} />
         <Route path={"/write"} element={<Write />} />
         <Route path={"/post/:postId"} element={<PostDetail />} />
         <Route path={"/post/write"} element={<PostWrite />} />
+        <Route path={"/post/edit/:postId"} element={<PostEdit />} />
         <Route path={"/user/post"} element={<MyPost />} />
         <Route path={"/post/*"} element={<Post />} />
       </Routes>

@@ -1,3 +1,16 @@
+export const PostData = {
+  category: {
+    categoryId: 0,
+    categoryName: "",
+  },
+  content: "",
+  createDate: "",
+  postId: 0,
+  title: "",
+  likeCount: "",
+  commentCount: "",
+  viewCount: "",
+};
 export const DetailPostData = {
   category: {
     categoryId: 0,
@@ -7,6 +20,13 @@ export const DetailPostData = {
   createDate: "",
   postId: 0,
   title: "",
+  fileName: "",
+  filePath: "",
+  member: {
+    memberId: 0,
+    name: "",
+  },
+  likeCount: 0,
 };
 export const DetailCommentListData = [
   {

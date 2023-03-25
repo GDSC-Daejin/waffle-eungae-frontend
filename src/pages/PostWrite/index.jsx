@@ -22,114 +22,88 @@ import uml from "@toast-ui/editor-plugin-uml";
 import axios from "axios";
 import CategoryMenu from "../../components/CategoryMenu";
 import { useRecoilValue } from "recoil";
-import { currentCategoryId } from "../../store/category";
+import { currentCategoryIdStore } from "../../store/category";
 import { PostTitle } from "./styled";
 import { DetailPostData } from "../../type";
-import { Viewer } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 
 const PostWrite = () => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState("");
-  const [detailPostData, setDetailPostData] = useState(DetailPostData);
-  console.log(detailPostData);
-  const [postData, setPostData] = useState({
-    postId: 0,
+  /* const [detailPostData, setDetailPostData] = useState(DetailPostData);
+  console.log(detailPostData);*/
+  const [post, setPost] = useState({
     content: "",
     title: "",
+    fileName: "",
+    filePath: "",
+    file: "",
+    viewCount: 0,
   });
 
-  const categoryId = useRecoilValue(currentCategoryId);
-  console.log(categoryId);
+  const currentCategoryId = useRecoilValue(currentCategoryIdStore);
 
   const editorRef = useRef();
 
   const setEditorValue = () => {
     const editorContent = editorRef.current.getInstance().getMarkdown();
-    setPostData(() => {
-      return { ...postData, content: editorContent };
+    setPost(() => {
+      return { ...post, content: editorContent };
     });
   };
 
   // post put 기능
   const handleSubmit = () => {
     axios
-      .post(`https://eung-ae-back.kro.kr/post/${categoryId}`, postData)
-      .then((res) => alert("성공"), console.log(postData))
+      .post(
+        `https://eung-ae-back.kro.kr/api/v1/post/${currentCategoryId}`,
+        post
+      )
+      .then((res) => alert("성공"), console.log(post))
       .catch((err) => console.log(err));
   };
-  const initPostData = async () => {
-    const response = await axios.get("https://eung-ae-back.kro.kr/post");
+  /*const initPostData = async () => {
+    const response = await axios
+      .get(`https://eung-ae-back.kro.kr/api/v1/post/${currentCategoryId}`)
+      .then((res) => alert("성공"), console.log(post))
+      .catch((err) => console.log(err));
+  };*/
+  /*const initDetailPostData = async () => {
+    const response = await axios.get(`https://eung-ae-back.kro.kr/post`);
+    console.log(response);
+>>>>>>> develop
     if (response.status === 200) {
       setDetailPostData(response.data.content[0]);
       console.log(response.data);
     }
-  };
-
-  useEffect(() => {
-    initPostData();
-  }, []);
-  /*const onUploadImage = async (blob, callback) => {
-    const url = await uploadImage(blob);
-    callback(url, "alt text");
-    return false;
-  };
-  const uploadImage = (blob) => {
-    let formData = new FormData();
-    formData.append("image", blob); // 이미지를 폼데이터 file로 변경 'image'가 input name이다.
-    this.ajax({
-      url: "작업용 controler.php",
-      enctype: "multipart/form-data",
-      type: "POST",
-      data: formData,
-      processData: false,
-      contentType: false,
-      async: false, // 비동기를 동기로 변경.
-    })
-      .done(function (data) {
-        return data; // 보통은 이건데, 나의 경우 할당이 안되더라.
-        // dataImagurl = data;
-        // return dataImagurl;
-      })
-      .fail(function (err) {
-        alert(err);
-      });
   };*/
 
   /*useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.getInstance().removeHook("addImageBlobHook");
-      editorRef.current
-        .getInstance()
-        .addHook("addImageBlobHook", (blob, callback) => {
-          (async () => {
-            let formData = new FormData();
-            formData.append("file", blob);
+    initDetailPostData();
+  }, []);*/
 
-            axios.defaults.withCredentials = true;
-            const { data: url } = await axios.post(`ßimage.do`, formData, {
-              header: { "content-type": "multipart/formdata" },
-            });
-            callback(url, "alt text");
-          })();
+  //console.log(`${detailPostData.content}`);
 
-          return false;
-        });
-    }
+  const fileInput = React.useRef(null);
 
-    return () => {};
-  }, [editorRef]);*/
-  console.log(`${detailPostData.content}`);
+  const handleButtonClick = (e) => {
+    fileInput.current.click();
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.files);
+  };
+
   return (
     <>
       <div>post write</div>
       <CategoryMenu onClick={setCategory} categoryName={category} />
       <PostTitle
         placeholder="제목을 입력하세요."
-        value={postData.title}
+        value={post.title}
         onChange={(e) => {
-          setPostData(() => {
-            return { ...postData, title: e.target.value };
+          setPost(() => {
+            return { ...post, title: e.target.value[0] };
           });
         }}
       />
@@ -147,48 +121,97 @@ const PostWrite = () => {
           tableMergedCell,
           uml,
         ]}
-        /*hooks={{
-          addImageBlobHook: (blob, callback) => {
-            const uploadedImageURL = uploadImage(blob);
-            callback(uploadedImageURL, "alt text");
-            return false;
-          },
-        }}*/
         useCommandShortcut={true}
       />
       <button onClick={handleSubmit}>글쓰기</button>
-      {/*<div id="toastUIEditor">
-        <h1>Toast UI Editor Example</h1>
-        <div id="button">
-          <button className="btn_save" onClick={handleChangeEditor}>
-            Save
-          </button>
-        </div>
-      </div>*/}
-      <div className="form-group row">
-        <label htmlFor="inputFile" className="col-sm-2 col-form-label">
-          <strong>첨부 파일</strong>
-        </label>
-        <div className="col-sm-10">
-          <div className="custom-file" id="inputFile">
-            <input
-              name="file"
-              type="file"
-              className="custom-file-input"
-              id="customFile"
-            />
-            <label className="custom-file-label" htmlFor="customFile">
-              파일을 선택해 주세요.
+      {/*<header th:insert="common/header.html"></header>*/}
+      <div className="container">
+        <form action="/post" method="post" encType="multipart/form-data">
+          <div className="form-group row">
+            <label htmlFor="inputTitle" className="col-sm-2 col-form-label">
+              <strong>제목</strong>
             </label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                name="title"
+                className="form-control"
+                id="inputTitle"
+              />
+            </div>
           </div>
-        </div>
+          <div className="form-group row">
+            <label htmlFor="inputAuthor" className="col-sm-2 col-form-label">
+              <strong>작성자</strong>
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                name="author"
+                className="form-control"
+                id="inputAuthor"
+              />
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputContent" className="col-sm-2 col-form-label">
+              <strong>내용</strong>
+            </label>
+            <div className="col-sm-10">
+              <textarea
+                type="text"
+                name="content"
+                className="form-control"
+                id="inputContent"
+              ></textarea>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label htmlFor="inputFile" className="col-sm-2 col-form-label">
+              <strong>첨부 파일</strong>
+            </label>
+            <div className="col-sm-10">
+              <div className="custom-file" id="inputFile">
+                <input
+                  name="file"
+                  type="file"
+                  className="custom-file-input"
+                  id="customFile"
+                />
+                <label className="custom-file-label" htmlFor="customFile">
+                  파일을 선택해 주세요.
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-auto mr-auto"></div>
+            <div className="col-auto">
+              <input
+                className="btn btn-primary"
+                type="submit"
+                role="button"
+                value="글쓰기"
+              />
+            </div>
+          </div>
+        </form>
       </div>
+      <button onClick={handleButtonClick}>파일 업로드</button>
+      <input
+        type="file"
+        ref={fileInput}
+        onChange={handleChange}
+        style={{ display: "none" }}
+      />
+      {/*<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+      <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
       <div>
-        <h2>Result</h2>
-        <div>{detailPostData.content}</div>
-      </div>
-      <Viewer initialValue={`${detailPostData.content}`} />
-      <div>asdfasfddafasdfadsfasfasdf</div>
+        $('.custom-file-input').on('change', function () {
+        var fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+      });
+      </div>*/}
     </>
   );
 };

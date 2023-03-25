@@ -1,18 +1,15 @@
 import styled, { css } from "styled-components";
 
-export const CategoryMenuContainer = styled.div`
-  width: 100%;
-  height: 35px;
-  box-sizing: border-box;
-`;
 export const CategoryMenuWrapper = styled.div`
+  width: 100%;
   display: flex;
 `;
 export const Category = styled.div`
-  margin: 0 12px;
+  margin-right: 24px;
+  font-size: 14px;
   cursor: pointer;
   ${(props) =>
-    props.clicked &&
+    props.isClicked &&
     css`
       border-bottom: 1px solid black;
     `}
