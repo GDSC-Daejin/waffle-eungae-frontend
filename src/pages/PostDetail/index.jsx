@@ -85,7 +85,6 @@ const PostDetail = () => {
     initDetailPostData();
     initComment();
     console.log(`댓글 : ${commentList}`);
-    alert(document.cookie);
   }, []);
 
   return (
