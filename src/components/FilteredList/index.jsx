@@ -18,11 +18,7 @@ const FilteredList = () => {
   const [postList, setPostList] = useState([DetailPostData]);
 
   const initData = async () => {
-<<<<<<< HEAD
-    const response = await axios.get("https://eung-ae-back.kro.kr/post?size=5");
-=======
     const response = await axios.get("https://eung-ae-back.kro.kr?size=5");
->>>>>>> develop
     if (response.status === 200) {
       setPostList(response.data.content);
     }
