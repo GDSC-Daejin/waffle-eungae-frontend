@@ -44,7 +44,8 @@ const PostEdit = () => {
     axios
       .patch(
         `https://eung-ae-back.kro.kr/api/v1/post/${detailPostData.postId}`,
-        post
+        post,
+        { withCredentials: true }
       )
       .then((res) => alert("성공"), console.log(post))
       .catch((err) => console.log(err));
