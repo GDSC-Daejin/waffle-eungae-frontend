@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CategoryList from "../../components/CategoryList";
 import RecentList from "../../components/RecentList";
-import UserLanking from "../../components/UserLanking";
+import Lanking from "../../components/Lanking";
 import { getCategory, getPostASC } from "../../apis";
 import { HomeWrapper, CategoryWrapper } from "./style";
 
@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       <RecentList datas={homeData} />
-      <UserLanking />
+      <Lanking />
       <CategoryWrapper>
         {categoryList.map((ccc) => {
           return <CategoryList category={ccc} />;

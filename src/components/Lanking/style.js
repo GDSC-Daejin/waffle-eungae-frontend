@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { assetColors } from "../../styles/assetColor";
 import { fontSizes } from "../../styles/fontSize";
 
-export const UserLankingWrapper = styled.div`
+export const LankingWrapper = styled.div`
   width: 240px;
   padding: 30px;
   background-color: ${assetColors.grey100};
@@ -18,9 +18,21 @@ export const UserLankingWrapper = styled.div`
   }
 `;
 
-export const User = styled.div`
-  font-size: ${fontSizes.textM};
+export const View = styled.div`
+  display: flex;
   & + & {
     margin-top: 12px;
   }
+`;
+
+export const Lank = styled.div`
+  width: 20px;
+  margin-right: 12px;
+  font-weight: bold;
+  color: #94969b;
+  text-align: right;
+  font-size: ${fontSizes.textM};
+`;
+export const Title = styled.div`
+  font-size: ${fontSizes.textM};
 `;
