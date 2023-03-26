@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CategoryList from "../../components/CategoryList";
 import RecentList from "../../components/RecentList";
 import UserLanking from "../../components/UserLanking";
-import { getCategory, getPostASC, getPostByCategoryASC } from "../../apis";
+import { getCategory, getPostASC } from "../../apis";
 import { HomeWrapper, CategoryWrapper } from "./style";
 
 const Home = () => {
@@ -40,32 +40,13 @@ const Home = () => {
     setPostList();
   }, []);
 
-  let selectedDatas = [];
   return (
     <HomeWrapper>
       <RecentList datas={homeData} />
       <UserLanking />
       <CategoryWrapper>
-        {categoryList.map((category) => {
-          selectedDatas = [];
-          homeData.filter((data) => {
-            if (
-              data.categoryId === category.categoryId &&
-              selectedDatas.length < 5
-            ) {
-              selectedDatas.push(data);
-              return true;
-            }
-            return false;
-          });
-
-          return (
-            <CategoryList
-              key={category.categoryId}
-              category={category.categoryName}
-              datas={selectedDatas}
-            />
-          );
+        {categoryList.map((ccc) => {
+          return <CategoryList category={ccc} />;
         })}
       </CategoryWrapper>
     </HomeWrapper>
