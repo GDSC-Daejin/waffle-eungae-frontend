@@ -3,11 +3,12 @@ import { assetColors } from "../../styles/assetColor";
 import { fontSizes } from "../../styles/fontSize";
 
 export const HeaderBlock = styled.div`
+  display: flex;
   width: 100%;
   height: 70px;
-  padding-top: 25px;
-  justify-content: center;
-  justify-items: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
   a {
     font-size: ${fontSizes.textXxl};
     margin: 0px 25px;
@@ -17,4 +18,8 @@ export const HeaderBlock = styled.div`
   .active {
     color: ${assetColors.green600};
   }
+`;
+export const MenuWrapper = styled.div`
+  display: flex;
+  white-space: nowrap;
 `;

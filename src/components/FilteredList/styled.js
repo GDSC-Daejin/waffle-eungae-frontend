@@ -27,6 +27,7 @@ export const ListItem = styled.div`
   word-break: break-all;
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: space-between;
 `;
 export const ContentWrapper = styled.div`
@@ -40,4 +41,5 @@ export const Number = styled.div`
 export const Content = styled.p`
   margin: 0;
   font-size: 15px;
+  cursor: pointer;
 `;

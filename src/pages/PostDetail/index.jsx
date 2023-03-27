@@ -16,6 +16,7 @@ import {
   CommentSection,
   CommentWrapper,
   PostContent,
+  CommentCount,
 } from "./styled";
 import PostEditIcon from "../../assets/icons/PostEditIcon";
 import PostTrashIcon from "../../assets/icons/PostTrashIcon";
@@ -24,16 +25,21 @@ import axios from "axios";
 import { DetailCommentListData, DetailPostData } from "../../type";
 import { Viewer } from "@toast-ui/react-editor";
 import { useNavigate, useParams } from "react-router-dom";
-import CommentList from "../../components/CommentList";
-import CommentCard from "../../components/CommentCard";
+import CommentList from "../../components/Comment/CommentList";
+import CommentCard from "../../components/Comment/CommentCard";
+import { useRecoilValue } from "recoil";
+import { currentUserStore } from "../../store/user";
+import CommentInput from "../../components/Comment/CommentInput";
 
 const PostDetail = () => {
   const { postId } = useParams();
-  console.log(postId);
+  const { userName } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
-  console.log(detailPostData);
   const [commentList, setCommentList] = useState(DetailCommentListData);
+  const currentUser = useRecoilValue(currentUserStore);
+
+  const isUserEqual = currentUser.email === detailPostData.member.email;
 
   const navigate = useNavigate();
 
@@ -41,7 +47,6 @@ const PostDetail = () => {
     const response = await axios.get(
       `https://eung-ae-back.kro.kr/detail/${postId}`
     );
-    console.log(response);
     if (response.status === 200) {
       setDetailPostData(() => {
         return {
@@ -63,40 +68,24 @@ const PostDetail = () => {
 
   const initComment = async () => {
     const response = await axios.get(`https://eung-ae-back.kro.kr/${postId}`);
-    console.log(response.data);
     if (response.status === 200) {
       setCommentList(response.data);
     }
   };
 
-  const initPostData = async () => {
-    const response = await axios.get("https://eung-ae-back.kro.kr/post");
-    if (response.status === 200) {
-      setDetailPostData(response.data.content[1]);
-      console.log(response.data);
-    }
-  };
   const addLikeHandler = async () => {
     await axios.post(`https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`, {
       withCredentials: true,
     });
   };
 
-  const getInfo = async () => {
-    axios
-      .get(`https://eung-ae-back.kro.kr/login`)
-      .then((res) => console.log(res.data));
-  };
-
   useEffect(() => {
     initDetailPostData();
     initComment();
-    console.log(`댓글 : ${commentList}`);
   }, []);
 
   return (
     <>
-      <div onClick={getInfo}>가져오기</div>
       {!isLoading ? (
         <PostDetailContainer>
           <PostWrapper>
@@ -110,12 +99,18 @@ const PostDetail = () => {
                     {detailPostData.createDate.substring(0, 10)}
                   </PostDate>
                   <PostIconWrapper>
-                    <PostIcon onClick={() => navigate(`/post/edit/${postId}`)}>
-                      <PostEditIcon />
-                    </PostIcon>
-                    <PostIcon>
-                      <PostTrashIcon />
-                    </PostIcon>
+                    {isUserEqual && (
+                      <>
+                        <PostIcon
+                          onClick={() => navigate(`/post/edit/${postId}`)}
+                        >
+                          <PostEditIcon />
+                        </PostIcon>
+                        <PostIcon>
+                          <PostTrashIcon />
+                        </PostIcon>
+                      </>
+                    )}
                   </PostIconWrapper>
                 </PostAuthorWrapper>
               </PostHead>
@@ -126,14 +121,16 @@ const PostDetail = () => {
             <LikeIcon />
             <Like>{detailPostData.likeCount}</Like>
           </LikeIconWrapper>
-          <CommentList postId={postId} />
-          {/*<CommentSection>
+          {/*<CommentList postId={postId} />*/}
+          <CommentSection>
+            <CommentCount>댓글 {commentList.length}</CommentCount>
             {commentList.map((data, id) => (
               <CommentWrapper key={id}>
-                <CommentCard commentList={commentList} />
+                <CommentCard data={data} isUserEqual={isUserEqual} />
               </CommentWrapper>
             ))}
-          </CommentSection>*/}
+            <CommentInput postId={postId} initData={initComment} />
+          </CommentSection>
         </PostDetailContainer>
       ) : (
         <div>로딩 중</div>

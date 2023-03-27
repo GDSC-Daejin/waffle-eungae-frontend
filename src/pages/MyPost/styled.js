@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const PostBox = styled.div`
   padding: 24px 0;
@@ -25,6 +25,7 @@ export const MyPostTitle = styled.div`
   font-weight: bold;
   word-wrap: break-word;
   font-size: 16px;
+  cursor: pointer;
 `;
 export const MyPostContent = styled.div`
   font-size: 14px;
@@ -55,6 +56,11 @@ export const PostIconWrapper = styled.div`
   & svg {
     margin-right: 3px;
   }
+  ${(props) =>
+    props.filtered &&
+    css`
+      width: 40px;
+    `};
 `;
 export const PostInformation = styled.div`
   font-size: 12px;

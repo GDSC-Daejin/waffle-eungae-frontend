@@ -3,13 +3,22 @@ import "./App.css";
 import Header from "./components/Header";
 import Routing from "./Routing";
 
-import { ContainerInner, LayoutContainer } from "./styles/layout";
+import {
+  ContainerInner,
+  ContainerInners,
+  LayoutContainer,
+  LayoutContainers,
+} from "./styles/layout";
 
 function App() {
   return (
     <>
-      <Header />
-      <Routing />
+      <LayoutContainers>
+        <ContainerInners>
+          <Header />
+          <Routing />
+        </ContainerInners>
+      </LayoutContainers>
     </>
   );
 }

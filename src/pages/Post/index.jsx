@@ -24,14 +24,21 @@ import {
 } from "../../styles/layout";
 import PostThumbnail from "../../assets/PostThumbnail";
 import FilteredList from "../../components/FilteredList";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { currentCategoryIdStore } from "../../store/category";
 import PostSkeleton from "../../components/Skeleton/PostSkeleton";
 import PageBar from "../../components/PageBar";
+import {
+  currentPostLoaderStore,
+  postLoaderStore,
+} from "../../store/postLoader";
+import EyeIcon from "../../assets/icons/EyeIcon";
 
 const MyPost = () => {
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   const [isLoading, setIsLoading] = useState(true);
+  //const [isPostLoading, setIsPostLoading] = useRecoilState(postLoaderStore);
+  //const currentIsPostLoading = useRecoilValue(currentPostLoaderStore);
   const [category, setCategory] = useState("");
   const [postList, setPostList] = useState([]);
   console.log(postList);
@@ -60,61 +67,65 @@ const MyPost = () => {
 
   useEffect(() => {
     initPostData();
-  }, [currentCategoryId]);
+    setIsLoading(true);
+  }, [currentCategoryId, page]);
 
   return (
-    <LayoutContainers>
-      <ContainerInners>
-        <CategoryMenu onClick={setCategory} categoryName={category} />
-        {!isLoading ? (
-          <ArticleWrapper>
-            <MainArticle>
-              {postList.map((data, id) => (
-                <PostBox key={id}>
-                  <PostThumbnailWrapper>
-                    <PostThumbnail />
-                  </PostThumbnailWrapper>
-                  <PostTextWrapper>
-                    <MyPostTitle
-                      onClick={() => {
-                        navigate(`/post/${data.postId}`);
-                      }}
-                    >
-                      {data.title}
-                    </MyPostTitle>
-                    {/*<MyPostContent>{data.content}</MyPostContent>*/}
-                    <MyPostAuthor>{data.member.name}</MyPostAuthor>
-                    <PostInformationWrapper>
-                      <PostLeftInformation>
-                        <PostIconWrapper>
-                          <LikeIcon />
-                          <PostInformation>50</PostInformation>
-                        </PostIconWrapper>
-                        <PostIconWrapper>
-                          <CommentIcon />
-                          <PostInformation>50</PostInformation>
-                        </PostIconWrapper>
-                      </PostLeftInformation>
-                      <PostInformation>
-                        {data.createDate.substring(0, 10)}
-                      </PostInformation>
-                    </PostInformationWrapper>
-                  </PostTextWrapper>
-                </PostBox>
-              ))}
-              <PageBar page={page} count={count} onChange={setPage} />
-            </MainArticle>
-            <SideArticle>
-              {/*<BestMembers></BestMembers>
+    <>
+      <CategoryMenu
+        onClick={setCategory}
+        /*setIsPostLoading={setIsLoading()}
+        isPostLoading={isLoading}*/
+        categoryName={category}
+      />
+      {!isLoading ? (
+        <ArticleWrapper>
+          <MainArticle>
+            {postList.map((data, id) => (
+              <PostBox key={id}>
+                <PostThumbnailWrapper>
+                  <PostThumbnail />
+                </PostThumbnailWrapper>
+                <PostTextWrapper>
+                  <MyPostTitle
+                    onClick={() => {
+                      navigate(`/post/${data.member.name}/${data.postId}`);
+                    }}
+                  >
+                    {data.title}
+                  </MyPostTitle>
+                  {/*<MyPostContent>{data.content}</MyPostContent>*/}
+                  <MyPostAuthor>{data.member.name}</MyPostAuthor>
+                  <PostInformationWrapper>
+                    <PostLeftInformation>
+                      <PostIconWrapper>
+                        <LikeIcon />
+                        <PostInformation>{data.likeCount}</PostInformation>
+                      </PostIconWrapper>
+                      <PostIconWrapper>
+                        <EyeIcon />
+                        <PostInformation>{data.viewCount}</PostInformation>
+                      </PostIconWrapper>
+                    </PostLeftInformation>
+                    <PostInformation>
+                      {data.createDate.substring(0, 10)}
+                    </PostInformation>
+                  </PostInformationWrapper>
+                </PostTextWrapper>
+              </PostBox>
+            ))}
+            <PageBar page={page} count={count} onChange={setPage} />
+          </MainArticle>
+          <SideArticle>
+            {/*<BestMembers></BestMembers>
             <FilteredPosts></FilteredPosts>*/}
-              <FilteredList />
-            </SideArticle>
-          </ArticleWrapper>
-        ) : (
-          <PostSkeleton />
-        )}
-      </ContainerInners>
-    </LayoutContainers>
+            <FilteredList />
+          </SideArticle>
+        </ArticleWrapper>
+      ) : (
+        <PostSkeleton />
+      )}
+    </>
   );
 };
 

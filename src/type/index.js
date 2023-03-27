@@ -1,3 +1,23 @@
+export const MemberData = {
+  createdDate: "2023.03.21",
+  email: "anes53027@gmail.com",
+  level: null,
+  memberId: 1,
+  modifiedDate: "2023.03.21",
+  name: "정승우 (정승우)",
+  role: "GUEST",
+  roleKey: "ROLE_GUEST,",
+};
+export const InitialMemberData = {
+  createdDate: "",
+  email: "",
+  level: null,
+  memberId: 0,
+  modifiedDate: "",
+  name: "",
+  role: "",
+  roleKey: "",
+};
 export const PostData = {
   category: {
     categoryId: 0,
@@ -22,11 +42,9 @@ export const DetailPostData = {
   title: "",
   fileName: "",
   filePath: "",
-  member: {
-    memberId: 0,
-    name: "",
-  },
+  member: MemberData,
   likeCount: 0,
+  viewCount: 0,
 };
 export const DetailCommentListData = [
   {
@@ -34,6 +52,7 @@ export const DetailCommentListData = [
     content: "",
     createDate: "",
     like: 0,
+    member: MemberData,
     postId: 0,
   },
 ];

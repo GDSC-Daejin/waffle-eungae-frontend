@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { fontSizes } from "../../styles/fontSize";
+import { assetColors, primaryColor } from "../../styles/assetColor";
 
 export const PostDetailContainer = styled.div`
   position: relative;
@@ -23,8 +25,7 @@ export const PostHead = styled.div`
   font-size: 18px;
   display: flex;
   flex-direction: column;
-  margin-top: 110px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 export const Category = styled.div`
   font-weight: 400;
@@ -34,6 +35,7 @@ export const Category = styled.div`
   padding: 4px 0;
   margin-bottom: 20px;
   width: fit-content;
+  font-size: ${fontSizes.textM};
 `;
 export const PostTitle = styled.h1`
   font-size: 32px;
@@ -47,12 +49,15 @@ export const PostAuthorWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 50px;
+  align-items: center;
 `;
 export const PostAuthor = styled.div`
   margin-right: 10px;
+  font-size: ${fontSizes.textM};
 `;
 export const PostDate = styled.div`
   color: #8b95a1;
+  font-size: ${fontSizes.textS};
 `;
 export const PostIconWrapper = styled.div`
   position: absolute;
@@ -88,27 +93,34 @@ export const Like = styled.div`
   display: flex;
   font-size: 12px;
   align-items: center;
-  justify-content: center;
 `;
 export const CommentSection = styled.section`
   display: flex;
   flex-direction: column;
-  padding: 25px 0;
   border-top: 1px solid #eee;
-
   width: 100%;
   height: 100%;
   max-width: 600px;
+  margin-bottom: 25px;
+`;
+export const CommentCount = styled.h1`
+  border-bottom: 1px solid #eee;
+  margin: 0;
+  font-size: ${fontSizes.textM};
+  padding: 25px 12px;
 `;
 export const CommentWrapper = styled.div`
-  width: 100%;
-  padding: 24px 0;
+  padding: 24px 12px;
   border-bottom: 1px solid #eee;
   word-break: break-all;
 `;
+export const CommentAuthorWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 export const CommentAuthor = styled.div`
   font-size: 14px;
-  color: #61dafb;
+  color: ${assetColors.green600};
 `;
 export const Comment = styled.div`
   font-size: 16px;
@@ -119,29 +131,31 @@ export const CommentDate = styled.div`
   color: #8b95a1;
   margin-top: 13px;
 `;
-export const StackInput = styled.input`
+export const StackInputButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  width: 100%;
+  justify-content: center;
+`;
+export const StackInput = styled.textarea`
   padding: 10px 10px;
   border: 1px solid blue;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: ${fontSizes.textXl};
   background: transparent;
   flex: 1;
   transition: all 0.2s ease-in-out;
+  width: 100%;
+  line-height: 50px;
   &:hover {
     border-color: yellow;
   }
   &::placeholder {
-    color: black;
+    color: ${primaryColor.grey600};
+    line-height: inherit;
   }
-`;
-export const StackInputButtonWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 600px;
-  height: 100px;
-  width: 100%;
-  justify-content: center;
 `;
 export const StackButton = styled.button`
   padding: 10px 20px;
