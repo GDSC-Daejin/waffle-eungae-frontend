@@ -25,7 +25,6 @@ import axios from "axios";
 import { DetailCommentListData, DetailPostData } from "../../type";
 import { Viewer } from "@toast-ui/react-editor";
 import { useNavigate, useParams } from "react-router-dom";
-import CommentList from "../../components/Comment/CommentList";
 import CommentCard from "../../components/Comment/CommentCard";
 import { useRecoilValue } from "recoil";
 import { currentUserStore } from "../../store/user";
@@ -121,7 +120,6 @@ const PostDetail = () => {
             <LikeIcon />
             <Like>{detailPostData.likeCount}</Like>
           </LikeIconWrapper>
-          {/*<CommentList postId={postId} />*/}
           <CommentSection>
             <CommentCount>댓글 {commentList.length}</CommentCount>
             {commentList.map((data, id) => (
