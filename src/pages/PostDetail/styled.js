@@ -25,7 +25,6 @@ export const PostHead = styled.div`
   font-size: 18px;
   display: flex;
   flex-direction: column;
-  margin-top: 110px;
   margin-bottom: 10px;
 `;
 export const Category = styled.div`

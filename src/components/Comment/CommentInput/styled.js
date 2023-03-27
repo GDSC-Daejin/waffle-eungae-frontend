@@ -44,4 +44,5 @@ export const SubmitButton = styled.div`
   width: fit-content;
   padding: 10px;
   float: right;
+  cursor: pointer;
 `;

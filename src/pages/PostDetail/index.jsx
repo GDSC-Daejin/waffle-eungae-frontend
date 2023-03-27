@@ -73,22 +73,10 @@ const PostDetail = () => {
     }
   };
 
-  const initPostData = async () => {
-    const response = await axios.get("https://eung-ae-back.kro.kr/post");
-    if (response.status === 200) {
-      setDetailPostData(response.data.content[1]);
-    }
-  };
   const addLikeHandler = async () => {
     await axios.post(`https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`, {
       withCredentials: true,
     });
-  };
-
-  const getInfo = async () => {
-    axios
-      .get(`https://eung-ae-back.kro.kr/login`)
-      .then((res) => console.log(res.data));
   };
 
   useEffect(() => {
@@ -98,7 +86,6 @@ const PostDetail = () => {
 
   return (
     <>
-      <div onClick={getInfo}>가져오기</div>
       {!isLoading ? (
         <PostDetailContainer>
           <PostWrapper>

@@ -51,7 +51,7 @@ const Index = ({ postId, initData }) => {
           }
         />
       </CommentInBox>
-      <SubmitButton>등록</SubmitButton>
+      <SubmitButton onClick={addCommentHandler}>등록</SubmitButton>
       {/*<StackInput
         placeholder={"댓글을 남겨주세요"}
         value={comment.content ?? ""}
