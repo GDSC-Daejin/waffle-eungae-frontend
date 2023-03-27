@@ -140,7 +140,7 @@ const PostDetail = () => {
             <Like>{detailPostData.likeCount}</Like>
           </LikeIconWrapper>
           <CommentList postId={postId} />
-          {/*<CommentSection>
+          {/*<CommentSection>ㅇ
             {commentList.map((data, id) => (
               <CommentWrapper key={id}>
                 <CommentCard commentList={commentList} />

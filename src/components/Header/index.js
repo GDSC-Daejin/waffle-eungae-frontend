@@ -23,13 +23,13 @@ const Header = () => {
         {isUserEqual ? (
           <>
             <div>{currentUser.name}님 환영합니다.</div>
-            <div
+            <button
               onClick={() => {
                 setUser(InitialMemberData);
               }}
             >
               로그아웃
-            </div>
+            </button>
           </>
         ) : (
           <GoogleLoginButton />
