@@ -34,6 +34,7 @@ export const DetailPostData = {
   filePath: "",
   member: MemberData,
   likeCount: 0,
+  viewCount: 0,
 };
 export const DetailCommentListData = [
   {

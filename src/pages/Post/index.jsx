@@ -24,14 +24,21 @@ import {
 } from "../../styles/layout";
 import PostThumbnail from "../../assets/PostThumbnail";
 import FilteredList from "../../components/FilteredList";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { currentCategoryIdStore } from "../../store/category";
 import PostSkeleton from "../../components/Skeleton/PostSkeleton";
 import PageBar from "../../components/PageBar";
+import {
+  currentPostLoaderStore,
+  postLoaderStore,
+} from "../../store/postLoader";
+import EyeIcon from "../../assets/icons/EyeIcon";
 
 const MyPost = () => {
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   const [isLoading, setIsLoading] = useState(true);
+  //const [isPostLoading, setIsPostLoading] = useRecoilState(postLoaderStore);
+  //const currentIsPostLoading = useRecoilValue(currentPostLoaderStore);
   const [category, setCategory] = useState("");
   const [postList, setPostList] = useState([]);
   console.log(postList);
@@ -60,11 +67,17 @@ const MyPost = () => {
 
   useEffect(() => {
     initPostData();
-  }, [currentCategoryId]);
+    setIsLoading(true);
+  }, [currentCategoryId, page]);
 
   return (
     <>
-      <CategoryMenu onClick={setCategory} categoryName={category} />
+      <CategoryMenu
+        onClick={setCategory}
+        /*setIsPostLoading={setIsLoading()}
+        isPostLoading={isLoading}*/
+        categoryName={category}
+      />
       {!isLoading ? (
         <ArticleWrapper>
           <MainArticle>
@@ -87,11 +100,11 @@ const MyPost = () => {
                     <PostLeftInformation>
                       <PostIconWrapper>
                         <LikeIcon />
-                        <PostInformation>50</PostInformation>
+                        <PostInformation>{data.likeCount}</PostInformation>
                       </PostIconWrapper>
                       <PostIconWrapper>
-                        <CommentIcon />
-                        <PostInformation>50</PostInformation>
+                        <EyeIcon />
+                        <PostInformation>{data.viewCount}</PostInformation>
                       </PostIconWrapper>
                     </PostLeftInformation>
                     <PostInformation>

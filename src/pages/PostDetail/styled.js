@@ -88,7 +88,6 @@ export const Like = styled.div`
   display: flex;
   font-size: 12px;
   align-items: center;
-  justify-content: center;
 `;
 export const CommentSection = styled.section`
   display: flex;

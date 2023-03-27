@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { categoryIdStore, currentCategoryIdStore } from "../../store/category";
 import CategorySkeleton from "../Skeleton/CategorySkeleton";
+import { postLoaderStore } from "../../store/postLoader";
 
 export const categories = [
   { id: 0, category: "카테고리1" },
@@ -22,7 +23,7 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
   const [categoryList, setCategoryList] = useState([category]);
   const [categoryId, setCategoryId] = useRecoilState(categoryIdStore);
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
-  console.log(currentCategoryId);
+  const [isPostLoading, setIsPostLoading] = useRecoilState(postLoaderStore);
 
   const initCategoryData = async () => {
     const response = await axios.get("https://eung-ae-back.kro.kr/category");
@@ -84,9 +85,11 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
             {categoryList.map((data, id) => (
               <Category
                 onClick={() => {
+                  //setIsPostLoading(true);
                   onClick(data.categoryName);
                   setCategoryId(data.categoryId);
                   setPost && setPost(data.categoryId);
+                  //setIsPostLoading && setIsPostLoading(!isPostLoading);
                 }}
                 isClicked={data.categoryId === currentCategoryId}
                 key={id}

@@ -13,9 +13,12 @@ import {
 import LikeIcon from "../../assets/icons/LikeIcon";
 import { Like } from "../../pages/PostDetail/styled";
 import { PostIconWrapper } from "../../pages/MyPost/styled";
+import EyeIcon from "../../assets/icons/EyeIcon";
+import { useNavigate } from "react-router-dom";
 
 const FilteredList = () => {
   const [postList, setPostList] = useState([DetailPostData]);
+  const navigate = useNavigate();
 
   const initData = async () => {
     const response = await axios.get(
@@ -40,11 +43,17 @@ const FilteredList = () => {
           <ListItem key={id}>
             <ContentWrapper>
               <Number>{i++}</Number>
-              <Content>{data.title}</Content>
+              <Content
+                onClick={() =>
+                  navigate(`/post/${data.member.name}/${data.postId}`)
+                }
+              >
+                {data.title}
+              </Content>
             </ContentWrapper>
-            <PostIconWrapper>
-              <LikeIcon />
-              <Like>11</Like>
+            <PostIconWrapper filtered={true}>
+              <EyeIcon />
+              <Like>{data.viewCount}</Like>
             </PostIconWrapper>
           </ListItem>
         ))}

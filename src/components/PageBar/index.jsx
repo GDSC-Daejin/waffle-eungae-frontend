@@ -3,7 +3,6 @@ import Pagination from "react-js-pagination";
 import "./pagebar.css";
 
 const PageBar = ({ page, count, onChange }) => {
-  console.log(page, count, onChange);
   return (
     <Pagination
       activePage={page}
