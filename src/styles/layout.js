@@ -40,5 +40,5 @@ export const MainArticle = styled.article`
 export const SideArticle = styled.div`
   width: 384px;
   min-width: 250px;
-  margin: 24px 0;
+  margin: 24px 24px 24px 0;
 `;

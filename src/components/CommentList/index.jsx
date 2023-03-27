@@ -10,7 +10,7 @@ import {
   StackInputButtonWrapper,
 } from "../../pages/PostDetail/styled";
 import axios from "axios";
-import { DetailCommentData, DetailCommentListData } from "../../type";
+import { DetailCommentListData } from "../../type";
 
 const CommentList = ({ postId }) => {
   const [commentList, setCommentList] = useState(DetailCommentListData);

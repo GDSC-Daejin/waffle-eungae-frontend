@@ -63,58 +63,56 @@ const MyPost = () => {
   }, [currentCategoryId]);
 
   return (
-    <LayoutContainers>
-      <ContainerInners>
-        <CategoryMenu onClick={setCategory} categoryName={category} />
-        {!isLoading ? (
-          <ArticleWrapper>
-            <MainArticle>
-              {postList.map((data, id) => (
-                <PostBox key={id}>
-                  <PostThumbnailWrapper>
-                    <PostThumbnail />
-                  </PostThumbnailWrapper>
-                  <PostTextWrapper>
-                    <MyPostTitle
-                      onClick={() => {
-                        navigate(`/post/${data.postId}`);
-                      }}
-                    >
-                      {data.title}
-                    </MyPostTitle>
-                    {/*<MyPostContent>{data.content}</MyPostContent>*/}
-                    <MyPostAuthor>{data.member.name}</MyPostAuthor>
-                    <PostInformationWrapper>
-                      <PostLeftInformation>
-                        <PostIconWrapper>
-                          <LikeIcon />
-                          <PostInformation>50</PostInformation>
-                        </PostIconWrapper>
-                        <PostIconWrapper>
-                          <CommentIcon />
-                          <PostInformation>50</PostInformation>
-                        </PostIconWrapper>
-                      </PostLeftInformation>
-                      <PostInformation>
-                        {data.createDate.substring(0, 10)}
-                      </PostInformation>
-                    </PostInformationWrapper>
-                  </PostTextWrapper>
-                </PostBox>
-              ))}
-              <PageBar page={page} count={count} onChange={setPage} />
-            </MainArticle>
-            <SideArticle>
-              {/*<BestMembers></BestMembers>
+    <>
+      <CategoryMenu onClick={setCategory} categoryName={category} />
+      {!isLoading ? (
+        <ArticleWrapper>
+          <MainArticle>
+            {postList.map((data, id) => (
+              <PostBox key={id}>
+                <PostThumbnailWrapper>
+                  <PostThumbnail />
+                </PostThumbnailWrapper>
+                <PostTextWrapper>
+                  <MyPostTitle
+                    onClick={() => {
+                      navigate(`/post/${data.postId}`);
+                    }}
+                  >
+                    {data.title}
+                  </MyPostTitle>
+                  {/*<MyPostContent>{data.content}</MyPostContent>*/}
+                  <MyPostAuthor>{data.member.name}</MyPostAuthor>
+                  <PostInformationWrapper>
+                    <PostLeftInformation>
+                      <PostIconWrapper>
+                        <LikeIcon />
+                        <PostInformation>50</PostInformation>
+                      </PostIconWrapper>
+                      <PostIconWrapper>
+                        <CommentIcon />
+                        <PostInformation>50</PostInformation>
+                      </PostIconWrapper>
+                    </PostLeftInformation>
+                    <PostInformation>
+                      {data.createDate.substring(0, 10)}
+                    </PostInformation>
+                  </PostInformationWrapper>
+                </PostTextWrapper>
+              </PostBox>
+            ))}
+            <PageBar page={page} count={count} onChange={setPage} />
+          </MainArticle>
+          <SideArticle>
+            {/*<BestMembers></BestMembers>
             <FilteredPosts></FilteredPosts>*/}
-              <FilteredList />
-            </SideArticle>
-          </ArticleWrapper>
-        ) : (
-          <PostSkeleton />
-        )}
-      </ContainerInners>
-    </LayoutContainers>
+            <FilteredList />
+          </SideArticle>
+        </ArticleWrapper>
+      ) : (
+        <PostSkeleton />
+      )}
+    </>
   );
 };
 
