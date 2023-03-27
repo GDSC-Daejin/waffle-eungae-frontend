@@ -89,7 +89,7 @@ const MyPost = () => {
                 <PostTextWrapper>
                   <MyPostTitle
                     onClick={() => {
-                      navigate(`/post/${data.postId}`);
+                      navigate(`/post/${data.member.name}/${data.postId}`);
                     }}
                   >
                     {data.title}

@@ -17,7 +17,7 @@ const Routing = () => {
         <Route path={"/*"} element={<Home />} />
         <Route path={"/natureinfo"} element={<NatureInfo />} />
         <Route path={"/write"} element={<Write />} />
-        <Route path={"/post/:postId"} element={<PostDetail />} />
+        <Route path={"/post/:userName/:postId"} element={<PostDetail />} />
         <Route path={"/post/write"} element={<PostWrite />} />
         <Route path={"/post/edit/:postId"} element={<PostEdit />} />
         <Route path={"/user/post"} element={<MyPost />} />

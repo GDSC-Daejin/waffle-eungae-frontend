@@ -26,14 +26,20 @@ import { Viewer } from "@toast-ui/react-editor";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentList from "../../components/CommentList";
 import CommentCard from "../../components/CommentCard";
+import { useRecoilValue } from "recoil";
+import { currentUserStore } from "../../store/user";
 
 const PostDetail = () => {
   const { postId } = useParams();
-  console.log(postId);
+  const { userName } = useParams();
+  console.log(`postId : ${postId} ------userName : ${userName}`);
   const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
-  console.log(detailPostData);
   const [commentList, setCommentList] = useState(DetailCommentListData);
+  const currentUser = useRecoilValue(currentUserStore);
+
+  const isUserEqual = currentUser.email === detailPostData.member.email;
+  console.log(`isUserEqual : ${isUserEqual}`);
 
   const navigate = useNavigate();
 
@@ -110,12 +116,19 @@ const PostDetail = () => {
                     {detailPostData.createDate.substring(0, 10)}
                   </PostDate>
                   <PostIconWrapper>
-                    <PostIcon onClick={() => navigate(`/post/edit/${postId}`)}>
-                      <PostEditIcon />
-                    </PostIcon>
-                    <PostIcon>
-                      <PostTrashIcon />
-                    </PostIcon>
+                    {isUserEqual && (
+                      <>
+                        {" "}
+                        <PostIcon
+                          onClick={() => navigate(`/post/edit/${postId}`)}
+                        >
+                          <PostEditIcon />
+                        </PostIcon>
+                        <PostIcon>
+                          <PostTrashIcon />
+                        </PostIcon>
+                      </>
+                    )}
                   </PostIconWrapper>
                 </PostAuthorWrapper>
               </PostHead>

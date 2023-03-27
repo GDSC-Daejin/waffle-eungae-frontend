@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fontSizes } from "../../styles/fontSize";
 
 export const PostDetailContainer = styled.div`
   position: relative;
@@ -24,7 +25,7 @@ export const PostHead = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 110px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 export const Category = styled.div`
   font-weight: 400;
@@ -34,6 +35,7 @@ export const Category = styled.div`
   padding: 4px 0;
   margin-bottom: 20px;
   width: fit-content;
+  font-size: ${fontSizes.textM};
 `;
 export const PostTitle = styled.h1`
   font-size: 32px;
@@ -47,12 +49,15 @@ export const PostAuthorWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 50px;
+  align-items: center;
 `;
 export const PostAuthor = styled.div`
   margin-right: 10px;
+  font-size: ${fontSizes.textM};
 `;
 export const PostDate = styled.div`
   color: #8b95a1;
+  font-size: ${fontSizes.textS};
 `;
 export const PostIconWrapper = styled.div`
   position: absolute;
