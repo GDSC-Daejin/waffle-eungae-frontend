@@ -112,8 +112,8 @@ const Home = () => {
     <HomeWrapper>
       <RecentWrapper>
         <div className="topic">최신글</div>
-        <hr />
-        <RecentList datas={datas} />
+        <hr/>
+        <RecentList datas={datas}/>
       </RecentWrapper>
       <UserLanking>as</UserLanking>
       <CategoryWrapper>
@@ -140,6 +140,5 @@ const Home = () => {
       </CategoryWrapper>
     </HomeWrapper>
   );
-};
-
+}
 export default Home;

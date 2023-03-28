@@ -3,14 +3,20 @@ import { assetColors } from "../../styles/assetColor";
 import { fontSizes } from "../../styles/fontSize";
 
 export const HeaderBlock = styled.div`
+  display: flex;
   width: 100%;
   height: 70px;
-  padding: 7px 0 7px 0;
+
+  /*padding: 7px 0 7px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #888;
-  margin-bottom: 12px;
+  margin-bottom: 12px;*/
+
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
   a {
     height: 30px;
     font-size: ${fontSizes.textXxl};
@@ -32,4 +38,8 @@ export const HeaderBlock = styled.div`
 
 export const Empty = styled.div`
   width: 20%;
+`;
+export const MenuWrapper = styled.div`
+  display: flex;
+  white-space: nowrap;
 `;

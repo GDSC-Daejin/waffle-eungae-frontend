@@ -1,17 +1,23 @@
 import React from "react";
+import "./App.css";
 import Header from "./components/Header";
 import Routing from "./Routing";
 
-import { ContainerInner, LayoutContainer } from "./styles/layout";
+import {
+  ContainerInner,
+  ContainerInners,
+  LayoutContainer,
+  LayoutContainers,
+} from "./styles/layout";
 
 function App() {
   return (
-    <LayoutContainer>
-      <Header />
-      <ContainerInner>
+    <LayoutContainers>
+      <ContainerInners>
+        <Header />
         <Routing />
-      </ContainerInner>
-    </LayoutContainer>
+      </ContainerInners>
+    </LayoutContainers>
   );
 }
 
