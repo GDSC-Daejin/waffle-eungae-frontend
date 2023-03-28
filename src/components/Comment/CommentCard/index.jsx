@@ -8,10 +8,15 @@ import {
 import PostTrashIcon from "../../../assets/icons/PostTrashIcon";
 
 const CommentCard = ({ data, isUserEqual }) => {
+  console.log(data.member);
   return (
     <>
       <CommentAuthorWrapper>
-        <CommentAuthor>Eung-ae</CommentAuthor>
+        {data.member ? (
+          <CommentAuthor>{data.member.name}</CommentAuthor>
+        ) : (
+          <CommentAuthor>null</CommentAuthor>
+        )}
         {isUserEqual && <PostTrashIcon size={"small"} />}
       </CommentAuthorWrapper>
       <Comment>{data.content}</Comment>

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getPostByCategoryASC } from "../../apis";
 import LikeIcon from "../../assets/LikeIcon";
 import { IconBlock, ListBlock, Post, Upper } from "./style";
+import { getPostByCategoryASC } from "../../apis";
 
 const CategoryList = (category) => {
   const [catePost, setCatePost] = useState([]);
