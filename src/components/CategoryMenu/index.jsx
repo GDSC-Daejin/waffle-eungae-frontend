@@ -39,7 +39,9 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
   const addCategoryHandler = () => {
     category.categoryName !== "" &&
       axios
-        .post(`https://eung-ae-back.kro.kr/api/v1/category`, category)
+        .post(`https://eung-ae-back.kro.kr/api/v1/category`, category, {
+          withCredentials: true,
+        })
         .then((res) => {
           alert("성공");
           setCategory(() => {
@@ -54,7 +56,10 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
       axios
         .patch(
           `https://eung-ae-back.kro.kr/api/v1/category${currentCategoryId}`,
-          category
+          category,
+          {
+            withCredentials: true,
+          }
         )
         .then((res) => {
           alert("성공");

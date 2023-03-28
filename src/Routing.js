@@ -9,6 +9,7 @@ import PostWrite from "./pages/PostWrite";
 import MyPost from "./pages/MyPost";
 import Post from "./pages/Post";
 import PostEdit from "./pages/PostEdit";
+import LoginPage from "./pages/LoginPage";
 
 const Routing = () => {
   return (
@@ -22,6 +23,7 @@ const Routing = () => {
         <Route path={"/post/edit/:postId"} element={<PostEdit />} />
         <Route path={"/user/post"} element={<MyPost />} />
         <Route path={"/post/*"} element={<Post />} />
+        <Route path={"/login/oauth2/code/google"} element={<LoginPage />} />
       </Routes>
     </>
   );
