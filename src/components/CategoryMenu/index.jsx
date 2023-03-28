@@ -39,7 +39,7 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
   const addCategoryHandler = () => {
     category.categoryName !== "" &&
       axios
-        .post(`https://eung-ae-back.kro.kr/api/v1/category`, category, {
+        .post(`https://eung-ae-back.kro.kr/category`, category, {
           withCredentials: true,
         })
         .then((res) => {

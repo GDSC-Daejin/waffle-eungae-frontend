@@ -55,10 +55,9 @@ const PostWrite = () => {
   // post put 기능
   const handleSubmit = () => {
     axios
-      .post(
-        `https://eung-ae-back.kro.kr/api/v1/post/${currentCategoryId}`,
-        post
-      )
+      .post(`https://eung-ae-back.kro.kr/post/${currentCategoryId}`, post, {
+        withCredentials: true,
+      })
       .then((res) => alert("성공"), console.log(post))
       .catch((err) => console.log(err));
   };
