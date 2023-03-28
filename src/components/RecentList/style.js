@@ -24,6 +24,8 @@ export const ListBlock = styled.div`
   .more {
     float: right;
     font-size: ${fontSizes.textS};
+    text-decoration: none;
+    color: black;
   }
 `;
 

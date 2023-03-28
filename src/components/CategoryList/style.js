@@ -31,6 +31,8 @@ export const Upper = styled.div`
   .more {
     float: right;
     font-size: ${fontSizes.textS};
+    text-decoration: none;
+    color: black;
   }
 `;
 

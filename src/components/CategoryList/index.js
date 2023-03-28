@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getPostByCategoryASC } from "../../apis";
 import LikeIcon from "../../assets/LikeIcon";
 import { IconBlock, ListBlock, Post, Upper } from "./style";
@@ -35,7 +36,9 @@ const CategoryList = (category) => {
     <ListBlock>
       <Upper>
         <div className="topic">{category.category.categoryName}</div>
-        <div className="more">+ 더보기</div>
+        <Link className="more" to="/post">
+          + 더보기
+        </Link>
       </Upper>
       <hr />
       {catePost !== [] ? (

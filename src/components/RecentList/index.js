@@ -2,12 +2,15 @@ import React from "react";
 import LikeIcon from "../../assets/LikeIcon";
 import EyeIcon from "../../assets/EyeIcon";
 import { IconBlock, ListBlock, Post, StringBlock, Upper } from "./style";
+import { Link } from "react-router-dom";
 const RecentList = ({ datas }) => {
   return (
     <ListBlock>
       <Upper>
         <div className="topic">최신글</div>
-        <div className="more">+ 더보기</div>
+        <Link to="/post" className="more">
+          + 더보기
+        </Link>
       </Upper>
       <hr />
       {datas.map((data) => {

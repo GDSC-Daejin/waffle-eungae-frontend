@@ -9,7 +9,7 @@ const Header = () => {
       <Logo src={logo} alt="logo" />
       <NavLink to="/">홈</NavLink>
       <NavLink to="/natureinfo">환경 정보</NavLink>
-      <NavLink to="/write">글쓰기</NavLink>
+      <NavLink to="/post/write">글쓰기</NavLink>
       <Empty />
       <Link className="button" to="/login">
         로그인
