@@ -1,25 +1,32 @@
 import React from "react";
 import LikeIcon from "../../assets/LikeIcon";
-import CommentIcon from "../../assets/CommentIcon";
-import { IconBlock, ListBlock, Post, StringBlock } from "./style";
+import EyeIcon from "../../assets/EyeIcon";
+import { IconBlock, ListBlock, Post, StringBlock, Upper } from "./style";
+import { Link } from "react-router-dom";
 const RecentList = ({ datas }) => {
   return (
     <ListBlock>
+      <Upper>
+        <div className="topic">최신글</div>
+        <Link to="/post" className="more">
+          + 더보기
+        </Link>
+      </Upper>
+      <hr />
       {datas.map((data) => {
         return (
-          <Post>
+          <Post key={data.id}>
             <StringBlock>
-              <div className="category">{data.category_id}</div>
-              {/*카테고리 아이디를 넣어서 카테고리 이름을 반환하는 훅을 만들어서 사용하면 될 듯?*/}
+              <div className="category">{data.categoryName}</div>
               <div className="title">{data.title}</div>
             </StringBlock>
             <IconBlock>
               <LikeIcon />
-              <div className="number">&nbsp;11</div>
+              <div className="number">&nbsp;{data.likeCount}</div>
             </IconBlock>
             <IconBlock>
-              <CommentIcon />
-              <div className="number">&nbsp;33</div>
+              <EyeIcon width="16px" />
+              <div className="number">&nbsp;{data.viewCount}</div>
             </IconBlock>
           </Post>
         );

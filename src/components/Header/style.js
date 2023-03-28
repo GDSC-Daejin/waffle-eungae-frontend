@@ -18,9 +18,7 @@ export const HeaderBlock = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
   a {
-    height: 30px;
     font-size: ${fontSizes.textXxl};
-    font-weight: 600;
     margin: 0px 25px;
     text-decoration: none;
     color: ${assetColors.grey900};
@@ -35,10 +33,14 @@ export const HeaderBlock = styled.div`
     border-radius: 5px;
   }
 `;
-
+export const Logo = styled.img`
+  height: 40px;
+  margin-right: 20px;
+`;
 export const Empty = styled.div`
   width: 20%;
 `;
+
 export const MenuWrapper = styled.div`
   display: flex;
   white-space: nowrap;

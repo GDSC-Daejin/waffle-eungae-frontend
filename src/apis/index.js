@@ -1,12 +1,16 @@
 import axios from "axios";
 
 export const getCategory = async () => {
-  return await axios.get(`http://localhost:8080/`);
+  return await axios.get(`https://eung-ae-back.kro.kr/category`);
 };
 export const getPostASC = async () => {
-<<<<<<< HEAD
-  return await axios.get(`http://localhost:8080/post?sort=ASC`);
-=======
-  return await axios.get(`http://localhost:8080/`);
->>>>>>> develop
+  return await axios.get(`https://eung-ae-back.kro.kr?sort=ASC`);
+};
+export const getPostByCategoryASC = async (categoryId) => {
+  return await axios.get(
+    `https://eung-ae-back.kro.kr/categoryPost/${categoryId}?sort=ASC`
+  );
+};
+export const getViewCount = async () => {
+  return await axios.get(`https://eung-ae-back.kro.kr/viewCount?sort=ASC`);
 };

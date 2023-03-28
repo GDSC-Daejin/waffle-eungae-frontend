@@ -23,6 +23,7 @@ export const LayoutContainers = styled.div`
 `;
 export const ContainerInner = styled.div`
 <<<<<<< HEAD
+<<<<<<< HEAD
   width: 1050px;
 =======
   width: 100%;
@@ -30,10 +31,12 @@ export const ContainerInner = styled.div`
 export const ContainerInners = styled.div`
   width: 92%;
 >>>>>>> develop
+=======
+>>>>>>> 11187c54ebfe73a58b85e935caf4b195237df3e4
   height: 100%;
-  max-width: calc(100% - 48px);
+  max-width: 1050px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 auto;
 `;
 export const ArticleWrapper = styled.div`
   display: flex;
