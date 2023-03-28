@@ -23,7 +23,7 @@ const CommentInput = ({ postId, initData }) => {
 
   const addCommentHandler = async () => {
     await axios
-      .post(`https://eung-ae-back.kro.kr/api/v1/${postId}`, comment, {
+      .post(`https://eung-ae-back.kro.kr/${postId}`, comment, {
         withCredentials: true,
       })
       .then(

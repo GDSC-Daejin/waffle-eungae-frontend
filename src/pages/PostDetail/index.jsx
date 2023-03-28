@@ -84,7 +84,7 @@ const PostDetail = () => {
 
   const addLikeHandler = async () => {
     await axios.post(
-      `https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`,
+      `https://eung-ae-back.kro.kr/${postId}/like`,
       {},
       {
         withCredentials: true,

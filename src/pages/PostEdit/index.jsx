@@ -43,7 +43,7 @@ const PostEdit = () => {
   const handleSubmit = () => {
     axios
       .patch(
-        `https://eung-ae-back.kro.kr/api/v1/post/${detailPostData.postId}`,
+        `https://eung-ae-back.kro.kr/post/${detailPostData.postId}`,
         post,
         { withCredentials: true }
       )
