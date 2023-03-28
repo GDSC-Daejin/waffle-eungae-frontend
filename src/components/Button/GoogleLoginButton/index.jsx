@@ -18,7 +18,7 @@ const GoogleLoginBuuton = () => {
 
   return (
     <LoginButtonWrapper>
-      <a href="https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=http://localhost:3000/login/oauth2/code/google">
+      <a href="https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle.eung-ae-back.kro.kr/login/oauth2/code/google">
         <LoginButton onClick={() => setUser(MemberData)}>
           <GoogleLogo />
           a.구글 로그인
