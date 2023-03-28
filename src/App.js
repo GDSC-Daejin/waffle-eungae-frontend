@@ -12,14 +12,12 @@ import {
 
 function App() {
   return (
-    <>
-      <LayoutContainers>
-        <ContainerInners>
-          <Header />
-          <Routing />
-        </ContainerInners>
-      </LayoutContainers>
-    </>
+    <LayoutContainers>
+      <ContainerInners>
+        <Header />
+        <Routing />
+      </ContainerInners>
+    </LayoutContainers>
   );
 }
 
