@@ -30,6 +30,13 @@ import { useRecoilValue } from "recoil";
 import { currentUserStore } from "../../store/user";
 import CommentInput from "../../components/Comment/CommentInput";
 
+const config = {
+  headers: {
+    "Access-Control-Allow-Origin": "http://localhost:8080", // 서버 domain
+  },
+  withCredentials: true,
+};
+
 const PostDetail = () => {
   const { postId } = useParams();
   const { userName } = useParams();
@@ -39,6 +46,9 @@ const PostDetail = () => {
   const currentUser = useRecoilValue(currentUserStore);
 
   const isUserEqual = currentUser.email === detailPostData.member.email;
+  console.log(
+    `${currentUser.email} ++++ ${isUserEqual} ++++ ${detailPostData.member.email}`
+  );
 
   const navigate = useNavigate();
 
@@ -73,9 +83,13 @@ const PostDetail = () => {
   };
 
   const addLikeHandler = async () => {
-    await axios.post(`https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`, {
-      withCredentials: true,
-    });
+    await axios.post(
+      `https://eung-ae-back.kro.kr/api/v1/post/${postId}/like`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
   };
 
   useEffect(() => {

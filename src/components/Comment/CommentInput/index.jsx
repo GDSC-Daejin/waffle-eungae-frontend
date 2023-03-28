@@ -13,7 +13,14 @@ import {
   SubmitButton,
 } from "./styled";
 
-const Index = ({ postId, initData }) => {
+const config = {
+  headers: {
+    "Access-Control-Allow-Origin": "http://localhost:8080", // 서버 domain
+  },
+  withCredentials: true,
+};
+
+const CommentInput = ({ postId, initData }) => {
   const [comment, setComment] = useState({
     commentId: 0,
     content: "",
@@ -67,4 +74,4 @@ const Index = ({ postId, initData }) => {
   );
 };
 
-export default Index;
+export default CommentInput;
