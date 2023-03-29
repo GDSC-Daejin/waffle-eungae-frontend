@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
@@ -30,6 +30,8 @@ import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 const PostWrite = () => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState("");
+
+  const [files, setFiles] = useState();
   /* const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);*/
   const [post, setPost] = useState({
@@ -39,6 +41,7 @@ const PostWrite = () => {
     filePath: "",
     file: "",
     viewCount: 0,
+    likeCount: 0,
   });
 
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
@@ -53,35 +56,26 @@ const PostWrite = () => {
   };
 
   // post put 기능
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("content", post.content);
+    formData.append("title", post.title);
+    /*formData.append("fileName", post.fileName);
+    formData.append("filePath", post.filePath);
+    formData.append("file", post.file);*/
+    formData.append("viewCount", post.viewCount);
+    formData.append("likeCount", post.likeCount);
     axios
-      .post(`https://eung-ae-back.kro.kr/post/${currentCategoryId}`, post, {
+      .post(`https://eung-ae-back.kro.kr/post/${currentCategoryId}`, formData, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then((res) => alert("성공"), console.log(post))
+      .then((res) => alert("성공"))
       .catch((err) => console.log(err));
+    console.log(formData);
   };
-  /*const initPostData = async () => {
-    const response = await axios
-      .get(`https://eung-ae-back.kro.kr/api/v1/post/${currentCategoryId}`)
-      .then((res) => alert("성공"), console.log(post))
-      .catch((err) => console.log(err));
-  };*/
-  /*const initDetailPostData = async () => {
-    const response = await axios.get(`https://eung-ae-back.kro.kr/post`);
-    console.log(response);
->>>>>>> develop
-    if (response.status === 200) {
-      setDetailPostData(response.data.content[0]);
-      console.log(response.data);
-    }
-  };*/
-
-  /*useEffect(() => {
-    initDetailPostData();
-  }, []);*/
-
-  //console.log(`${detailPostData.content}`);
 
   const fileInput = React.useRef(null);
 
@@ -89,20 +83,65 @@ const PostWrite = () => {
     fileInput.current.click();
   };
 
-  const handleChange = (e) => {
-    console.log(e.target.files);
+  const handleChangeFile = (e) => {
+    const fileReader = new FileReader();
+    const file = e.target.files[0];
+    setFiles(e.target.files[0]);
+    fileReader.readAsBinaryString(file);
+    /*setPost((prev) => {
+      return {
+        ...prev,
+        fileName: file.name,
+      };
+    });*/
+    fileReader.onload = (e) => {
+      setPost((prev) => {
+        return {
+          ...prev,
+          file: e.target.result,
+        };
+      });
+    };
   };
+
+  const handleFileSubmit = useCallback(async () => {
+    if (!files) return;
+
+    const formData = new FormData();
+    await (formData.append("file", files),
+    formData.append("content", post.content),
+    formData.append("title", post.title),
+    formData.append("fileName", post.fileName),
+    formData.append("filePath", post.filePath),
+    formData.append("viewCount", post.viewCount));
+
+    await axios.post(
+      `https://eung-ae-back.kro.kr/post/${currentCategoryId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+  }, [files]);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setFiles([...files, { uploadedFile: file }]);
+  };
+
+  console.log(files);
 
   return (
     <>
-      <div>post write</div>
       <CategoryMenu onClick={setCategory} categoryName={category} />
       <PostTitle
         placeholder="제목을 입력하세요."
         value={post.title}
         onChange={(e) => {
           setPost(() => {
-            return { ...post, title: e.target.value[0] };
+            return { ...post, title: e.target.value };
           });
         }}
       />
@@ -124,85 +163,22 @@ const PostWrite = () => {
       />
       <button onClick={handleSubmit}>글쓰기</button>
       {/*<header th:insert="common/header.html"></header>*/}
-      <div className="container">
-        <form action="/post" method="post" encType="multipart/form-data">
-          <div className="form-group row">
-            <label htmlFor="inputTitle" className="col-sm-2 col-form-label">
-              <strong>제목</strong>
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                name="title"
-                className="form-control"
-                id="inputTitle"
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="inputAuthor" className="col-sm-2 col-form-label">
-              <strong>작성자</strong>
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                name="author"
-                className="form-control"
-                id="inputAuthor"
-              />
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="inputContent" className="col-sm-2 col-form-label">
-              <strong>내용</strong>
-            </label>
-            <div className="col-sm-10">
-              <textarea
-                type="text"
-                name="content"
-                className="form-control"
-                id="inputContent"
-              ></textarea>
-            </div>
-          </div>
-          <div className="form-group row">
-            <label htmlFor="inputFile" className="col-sm-2 col-form-label">
-              <strong>첨부 파일</strong>
-            </label>
-            <div className="col-sm-10">
-              <div className="custom-file" id="inputFile">
-                <input
-                  name="file"
-                  type="file"
-                  className="custom-file-input"
-                  id="customFile"
-                />
-                <label className="custom-file-label" htmlFor="customFile">
-                  파일을 선택해 주세요.
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-auto mr-auto"></div>
-            <div className="col-auto">
-              <input
-                className="btn btn-primary"
-                type="submit"
-                role="button"
-                value="글쓰기"
-              />
-            </div>
-          </div>
+      {/*<div className="container">
+        <form
+          name="file"
+          encType={"multipart/form-data"}
+          onSubmit={handleFileSubmit}
+        >
+          <input type={"file"} name={"file"} onChange={handleFileUpload} />
         </form>
       </div>
       <button onClick={handleButtonClick}>파일 업로드</button>
       <input
         type="file"
         ref={fileInput}
-        onChange={handleChange}
+        onChange={handleChangeFile}
         style={{ display: "none" }}
-      />
+      />*/}
       {/*<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
       <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
       <div>

@@ -12,7 +12,10 @@ export const HomeWrapper = styled.div`
     max-width: 720px;
   }
 `;
-
+export const HomeBannerWrapper = styled.img`
+  width: 100%;
+  margin-bottom: 100px;
+`;
 export const CategoryWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;

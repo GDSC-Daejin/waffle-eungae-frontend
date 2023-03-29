@@ -3,7 +3,8 @@ import CategoryList from "../../components/CategoryList";
 import RecentList from "../../components/RecentList";
 import Lanking from "../../components/Lanking";
 import { getCategory, getPostASC } from "../../apis";
-import { HomeWrapper, CategoryWrapper } from "./style";
+import { HomeWrapper, CategoryWrapper, HomeBannerWrapper } from "./style";
+import HomeBanner from "../../assets/banner.png";
 
 const Home = () => {
   const [categoryList, setCategoryList] = useState([]);
@@ -43,6 +44,7 @@ const Home = () => {
 
   return (
     <HomeWrapper>
+      <HomeBannerWrapper src={HomeBanner} />
       <RecentList datas={homeData} />
       <Lanking />
       <CategoryWrapper>
