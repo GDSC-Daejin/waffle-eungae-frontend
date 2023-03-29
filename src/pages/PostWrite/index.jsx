@@ -132,6 +132,7 @@ const PostWrite = () => {
   };
 
   console.log(files);
+
   return (
     <>
       <CategoryMenu onClick={setCategory} categoryName={category} />
