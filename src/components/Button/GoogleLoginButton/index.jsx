@@ -19,14 +19,14 @@ const GoogleLoginBuuton = () => {
   return (
     <LoginButtonWrapper>
       <a href="https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle.eung-ae-back.kro.kr/login/oauth2/code/google">
-        <LoginButton onClick={() => setUser(MemberData)}>
+        <LoginButton>
           <GoogleLogo />
           a.구글 로그인
         </LoginButton>
       </a>
       <LoginButton
         onClick={() => {
-          setUser(MemberData);
+          //setUser(MemberData);
           // eslint-disable-next-line no-restricted-globals
           location.href =
             "https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle.eung-ae-back.ko.kr/login/oauth2/code/google";
