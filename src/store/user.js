@@ -6,14 +6,20 @@ const { persistAtom } = recoilPersist();
 export const userStore = atom({
   key: "userStore",
   default: {
-    createdDate: "",
     email: "",
-    level: null,
+    id: {
+      createdDate: "",
+      email: "",
+      level: 0,
+      memberId: 0,
+      modifiedDate: "",
+      name: "",
+      role: "",
+      roleKey: "",
+    },
+    level: 0,
     memberId: 0,
-    modifiedDate: "",
     name: "",
-    role: "",
-    roleKey: "",
   },
   effects_UNSTABLE: [persistAtom],
 });
