@@ -3,7 +3,9 @@ import LikeIcon from "../../assets/LikeIcon";
 import EyeIcon from "../../assets/EyeIcon";
 import { IconBlock, ListBlock, Post, StringBlock, Upper } from "./style";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const RecentList = ({ datas }) => {
+  const navigate = useNavigate();
   return (
     <ListBlock>
       <Upper>
@@ -18,7 +20,14 @@ const RecentList = ({ datas }) => {
           <Post key={data.id}>
             <StringBlock>
               <div className="category">{data.categoryName}</div>
-              <div className="title">{data.title}</div>
+              <div
+                className="title"
+                onClick={() => {
+                  navigate(`/post/${data.member}/${data.id}`);
+                }}
+              >
+                {data.title}
+              </div>
             </StringBlock>
             <IconBlock>
               <LikeIcon />

@@ -29,6 +29,7 @@ const Home = () => {
           title: post.title,
           likeCount: post.likeCount,
           viewCount: post.viewCount,
+          member: post.member.name,
         };
         arr.push(object);
       }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getViewCount } from "../../apis";
+import { getViewCount } from "../../apis/index";
 import { Lank, LankingWrapper, View, Title } from "./style";
 
 const Lanking = () => {

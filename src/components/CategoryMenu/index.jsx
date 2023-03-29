@@ -55,7 +55,7 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
     category.categoryName !== "" &&
       axios
         .patch(
-          `https://eung-ae-back.kro.kr/api/v1/category${currentCategoryId}`,
+          `https://eung-ae-back.kro.kr/category${currentCategoryId}`,
           category,
           {
             withCredentials: true,
@@ -72,10 +72,9 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
 
   const removeCategoryHandler = async () => {
     axios
-      .delete(
-        `https://eung-ae-back.kro.kr/api/v1/category/${currentCategoryId}`
-      )
+      .delete(`https://eung-ae-back.kro.kr/category/${currentCategoryId}`)
       .then((res) => alert("삭제 완료"));
+    initCategoryData();
   };
 
   useEffect(() => {

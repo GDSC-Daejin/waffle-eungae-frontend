@@ -46,9 +46,6 @@ const PostDetail = () => {
   const currentUser = useRecoilValue(currentUserStore);
 
   const isUserEqual = currentUser.email === detailPostData.member.email;
-  console.log(
-    `${currentUser.email} ++++ ${isUserEqual} ++++ ${detailPostData.member.email}`
-  );
 
   const navigate = useNavigate();
 
@@ -80,16 +77,18 @@ const PostDetail = () => {
     if (response.status === 200) {
       setCommentList(response.data);
     }
+    console.log(response.data);
   };
 
   const addLikeHandler = async () => {
     await axios.post(
-      `https://eung-ae-back.kro.kr/${postId}/like`,
+      `https://eung-ae-back.kro.kr/post/${postId}/like`,
       {},
       {
         withCredentials: true,
       }
     );
+    initDetailPostData();
   };
 
   useEffect(() => {

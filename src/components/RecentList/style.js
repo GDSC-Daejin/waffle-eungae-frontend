@@ -61,6 +61,7 @@ export const StringBlock = styled.div`
     font-size: ${fontSizes.textL};
     margin-left: 6px;
     line-height: 25px;
+    cursor: pointer;
   }
 `;
 
