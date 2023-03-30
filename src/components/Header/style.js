@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { assetColors } from "../../styles/assetColor";
+import { assetColors, primaryColor } from "../../styles/assetColor";
 import { fontSizes } from "../../styles/fontSize";
 
 export const HeaderBlock = styled.div`
@@ -44,4 +44,24 @@ export const Empty = styled.div`
 export const MenuWrapper = styled.div`
   display: flex;
   white-space: nowrap;
+  align-items: center;
+  margin-right: 20px;
+`;
+export const UserLogin = styled.div`
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+`;
+export const UserNameWrapper = styled.div`
+  font-size: ${fontSizes.textM};
+  margin-right: 20px;
+`;
+export const UserName = styled.strong`
+  font-size: ${fontSizes.textM};
+  cursor: pointer;
+  color: ${primaryColor.green600};
+  &:hover {
+    border-bottom: 1.5px solid black;
+    border-color: ${primaryColor.green600};
+  }
 `;

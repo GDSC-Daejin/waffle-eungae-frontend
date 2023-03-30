@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import {
-  StackButton,
-  StackInput,
-  StackInputButtonWrapper,
-} from "../../../pages/PostDetail/styled";
 import axios from "axios";
 import {
   CommentWriter,
@@ -12,6 +7,8 @@ import {
   CommentInBoxText,
   SubmitButton,
 } from "./styled";
+import { useRecoilValue } from "recoil";
+import { currentUserStore } from "../../../store/user";
 
 const CommentInput = ({ postId, initData }) => {
   const [comment, setComment] = useState({
@@ -20,26 +17,33 @@ const CommentInput = ({ postId, initData }) => {
     createDate: "",
     postId: parseInt(postId),
   });
+  const currentUser = useRecoilValue(currentUserStore);
 
   const addCommentHandler = async () => {
-    await axios
-      .post(`https://eung-ae-back.kro.kr/${postId}`, comment, {
-        withCredentials: true,
-      })
-      .then(
-        (res) => alert("성공"),
-        setComment(() => {
-          return { ...comment, content: "" };
+    if (currentUser.email) {
+      await axios
+        .post(`https://eung-ae-back.kro.kr/${postId}`, comment, {
+          withCredentials: true,
         })
-      )
-      .catch((err) => console.log(err));
-    initData();
+        .then(
+          (res) => alert("성공"),
+          setComment(() => {
+            return { ...comment, content: "" };
+          })
+        )
+        .catch((err) => console.log(err));
+      initData();
+    } else {
+      alert("로그인이 필요합니다.");
+    }
   };
 
   return (
     <CommentWriter>
       <CommentInBox>
-        <CommentInBoxAuthor>Eung-ae</CommentInBoxAuthor>
+        <CommentInBoxAuthor>
+          {currentUser.name ?? "로그인이 필요합니다."}
+        </CommentInBoxAuthor>
         <CommentInBoxText
           placeholder={"댓글을 남겨주세요"}
           value={comment.content ?? ""}

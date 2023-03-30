@@ -3,7 +3,7 @@ import { assetColors } from "../../styles/assetColor";
 import { fontSizes } from "../../styles/fontSize";
 
 export const LankingWrapper = styled.div`
-  width: 240px;
+  width: 200px;
   padding: 30px;
   background-color: ${assetColors.grey100};
   .letter {

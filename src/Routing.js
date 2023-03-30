@@ -18,10 +18,10 @@ const Routing = () => {
         <Route path={"/*"} element={<Home />} />
         <Route path={"/natureinfo"} element={<NatureInfo />} />
         <Route path={"/write"} element={<Write />} />
-        <Route path={"/post/:userName/:postId"} element={<PostDetail />} />
+        <Route path={"/post/:userId/:postId"} element={<PostDetail />} />
         <Route path={"/post/write"} element={<PostWrite />} />
         <Route path={"/post/edit/:userName/:postId"} element={<PostEdit />} />
-        <Route path={"/user/post"} element={<MyPost />} />
+        <Route path={"/:userId/post"} element={<MyPost />} />
         <Route path={"/post/*"} element={<Post />} />
         <Route path={"/login/oauth2/code/google"} element={<LoginPage />} />
       </Routes>

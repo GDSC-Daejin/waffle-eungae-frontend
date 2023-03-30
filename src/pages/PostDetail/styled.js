@@ -28,14 +28,14 @@ export const PostHead = styled.div`
   margin-bottom: 10px;
 `;
 export const Category = styled.div`
-  font-weight: 400;
-  flex-wrap: wrap;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid ${primaryColor.green600};
   display: flex;
   padding: 4px 0;
   margin-bottom: 20px;
   width: fit-content;
   font-size: ${fontSizes.textM};
+  color: ${primaryColor.green600};
+  font-weight: 600;
 `;
 export const PostTitle = styled.h1`
   font-size: 32px;
@@ -69,10 +69,6 @@ export const PostIconWrapper = styled.div`
 export const PostIcon = styled.div`
   cursor: pointer;
 `;
-/*export const PostTrashIconWrapper = styled.div`
-  position: absolute;
-  right: 0px;
-`;*/
 export const PostContent = styled.div`
   position: relative;
   display: flex;
@@ -88,6 +84,7 @@ export const LikeIconWrapper = styled.div`
   margin: 50px auto;
   border-radius: 100%;
   background: #e5e8eb;
+  cursor: pointer;
 `;
 export const Like = styled.div`
   display: flex;
@@ -130,44 +127,4 @@ export const CommentDate = styled.div`
   font-size: 12px;
   color: #8b95a1;
   margin-top: 13px;
-`;
-export const StackInputButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 600px;
-  width: 100%;
-  justify-content: center;
-`;
-export const StackInput = styled.textarea`
-  padding: 10px 10px;
-  border: 1px solid blue;
-  border-radius: 10px;
-  font-size: ${fontSizes.textXl};
-  background: transparent;
-  flex: 1;
-  transition: all 0.2s ease-in-out;
-  width: 100%;
-  line-height: 50px;
-  &:hover {
-    border-color: yellow;
-  }
-  &::placeholder {
-    color: ${primaryColor.grey600};
-    line-height: inherit;
-  }
-`;
-export const StackButton = styled.button`
-  padding: 10px 20px;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  color: #61dafb;
-  font-size: 14px;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  border-color: #61dafb;
-  &:hover {
-    border-color: #61dafb;
-  }
 `;

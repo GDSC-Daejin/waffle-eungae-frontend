@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { fontSizes } from "../../styles/fontSize";
+import { primaryColor } from "../../styles/assetColor";
 
 export const PostBox = styled.div`
   padding: 24px 0;
@@ -65,4 +67,19 @@ export const PostIconWrapper = styled.div`
 export const PostInformation = styled.div`
   font-size: 12px;
   color: #8b95a1;
+`;
+export const EmptyBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-bottom: 1px solid ${primaryColor.grey200};
+  border-top: 1px solid ${primaryColor.grey200};
+  margin-top: 20px;
+`;
+export const EmptyText = styled.h1`
+  font-size: ${fontSizes.textXxl};
+  color: ${primaryColor.grey500};
 `;
