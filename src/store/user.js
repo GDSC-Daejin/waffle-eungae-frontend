@@ -6,10 +6,10 @@ const { persistAtom } = recoilPersist();
 export const userStore = atom({
   key: "userStore",
   default: {
-    memberId: 0,
+    memberId: null,
     email: null,
-    name: "",
-    level: 0,
+    name: null,
+    level: null,
   },
   effects_UNSTABLE: [persistAtom],
 });

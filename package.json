@@ -25,6 +25,7 @@
     "react-js-pagination": "^3.0.3",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
     "styled-components": "^5.3.6",
@@ -56,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-transition-group": "^4.4.5",
     "react-error-overlay": "6.0.9"
   }
 }
