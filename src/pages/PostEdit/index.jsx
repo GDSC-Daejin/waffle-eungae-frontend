@@ -60,14 +60,13 @@ const PostEdit = () => {
           { withCredentials: true }
         )
         .then((res) => {
-          alert("성공");
+          alert("성공적으로 수정되었습니다.");
           navigate(-1);
         })
         .catch((err) => console.log(err));
     } else {
       alert("제출 양식에 맞지 않습니다.");
     }
-    navigate(-1);
   };
   const initDetailPostData = async () => {
     const response = await axios.get(
