@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import GoogleLogo from "../../../assets/icons/GoogleLogo";
 import { LoginButton, LoginButtonWrapper } from "./styled";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { currentUserStore, userStore } from "../../../store/user";
-import { MemberData } from "../../../type";
+import { UserData } from "../../../type";
 import axios from "axios";
+import Button from "../index";
+import ModalContent from "../../Modal/ModalContent";
+import Modal from "../../Modal";
 
 const GoogleLoginBuuton = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  console.log(isModalOpen);
   const [user, setUser] = useRecoilState(userStore);
   const currentUser = useRecoilValue(currentUserStore);
+  console.log(currentUser);
 
   const goLogin = () => {
     axios.post(
@@ -16,25 +22,29 @@ const GoogleLoginBuuton = () => {
     );
   };
 
+  const logoutHandler = () => {
+    setUser(UserData);
+  };
+
+  const handleModalClose = () => setIsModalOpen(false);
+
   return (
     <LoginButtonWrapper>
-      <a href="https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle.eung-ae-back.kro.kr/login/oauth2/code/google">
-        <LoginButton>
-          <GoogleLogo />
-          a.구글 로그인
-        </LoginButton>
-      </a>
-      <LoginButton
-        onClick={() => {
-          //setUser(MemberData);
-          // eslint-disable-next-line no-restricted-globals
-          location.href =
-            "https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle.eung-ae-back.ko.kr/login/oauth2/code/google";
-        }}
-      >
-        <GoogleLogo />
-        구글 로그인
-      </LoginButton>
+      {!currentUser.email ? (
+        <a href="https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle.eung-ae-back.kro.kr/login/oauth2/code/google">
+          <LoginButton>
+            <GoogleLogo />
+            구글 로그인
+          </LoginButton>
+        </a>
+      ) : (
+        <>
+          <Button text={"로그아웃"} onClick={logoutHandler} />
+          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+            <ModalContent type={1} />
+          </Modal>
+        </>
+      )}
     </LoginButtonWrapper>
   );
 };

@@ -14,7 +14,7 @@ export const categories = [
   { id: 4, category: "카테고리5" },
 ];
 
-const CategoryMenu = ({ onClick, categoryName, setPost }) => {
+const CategoryMenu = ({ setPost }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState({
     categoryId: 0,
@@ -90,7 +90,7 @@ const CategoryMenu = ({ onClick, categoryName, setPost }) => {
               <Category
                 onClick={() => {
                   //setIsPostLoading(true);
-                  onClick(data.categoryName);
+                  //onClick(data.categoryName);
                   setCategoryId(data.categoryId);
                   setPost && setPost(data.categoryId);
                   //setIsPostLoading && setIsPostLoading(!isPostLoading);

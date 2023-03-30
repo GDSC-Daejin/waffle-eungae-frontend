@@ -37,9 +37,6 @@ import EyeIcon from "../../assets/icons/EyeIcon";
 const MyPost = () => {
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   const [isLoading, setIsLoading] = useState(true);
-  //const [isPostLoading, setIsPostLoading] = useRecoilState(postLoaderStore);
-  //const currentIsPostLoading = useRecoilValue(currentPostLoaderStore);
-  const [category, setCategory] = useState("");
   const [postList, setPostList] = useState([]);
   console.log(postList);
   const [page, setPage] = useState(1);
@@ -72,12 +69,7 @@ const MyPost = () => {
 
   return (
     <>
-      <CategoryMenu
-        onClick={setCategory}
-        /*setIsPostLoading={setIsLoading()}
-        isPostLoading={isLoading}*/
-        categoryName={category}
-      />
+      <CategoryMenu />
       {!isLoading ? (
         <ArticleWrapper>
           <MainArticle>

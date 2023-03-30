@@ -8,6 +8,12 @@ export const MemberData = {
   role: "GUEST",
   roleKey: "ROLE_GUEST,",
 };
+export const UserData = {
+  memberId: null,
+  email: null,
+  name: null,
+  level: null,
+};
 export const InitialMemberData = {
   createdDate: "",
   email: "",

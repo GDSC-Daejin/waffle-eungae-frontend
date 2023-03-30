@@ -91,6 +91,14 @@ const PostDetail = () => {
     initDetailPostData();
   };
 
+  const removeHander = async () => {
+    await axios
+      .delete(`https://eung-ae-back.kro.kr/post/${postId}`, {
+        withCredentials: true,
+      })
+      .then((res) => alert("성공"));
+  };
+
   useEffect(() => {
     initDetailPostData();
     initComment();
@@ -114,11 +122,15 @@ const PostDetail = () => {
                     {isUserEqual && (
                       <>
                         <PostIcon
-                          onClick={() => navigate(`/post/edit/${postId}`)}
+                          onClick={() =>
+                            navigate(
+                              `/post/edit/${detailPostData.member.name}/${postId}`
+                            )
+                          }
                         >
                           <PostEditIcon />
                         </PostIcon>
-                        <PostIcon>
+                        <PostIcon onClick={removeHander}>
                           <PostTrashIcon />
                         </PostIcon>
                       </>
