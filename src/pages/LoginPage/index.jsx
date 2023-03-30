@@ -46,7 +46,7 @@ const LoginPage = () => {
 
   return (
     <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-      <ModalContent content={"로그인이 성공하였습니다."} buttonText={"확인"} />
+      <ModalContent type={0} />
     </Modal>
   );
 };

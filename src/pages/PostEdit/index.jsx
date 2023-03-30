@@ -1,11 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DetailPostData } from "../../type";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { categoryIdStore, currentCategoryIdStore } from "../../store/category";
 import axios from "axios";
 import CategoryMenu from "../../components/CategoryMenu";
-import { PostTitle } from "../PostWrite/styled";
+import { ButtonWrapper, PostTitle } from "../PostWrite/styled";
 import { Editor } from "@toast-ui/react-editor";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
@@ -13,24 +13,33 @@ import Prism from "prismjs";
 import chart from "@toast-ui/editor-plugin-chart";
 import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
 import uml from "@toast-ui/editor-plugin-uml";
+import { currentUserStore } from "../../store/user";
+import Button from "../../components/Button";
+import ModalContent from "../../components/Modal/ModalContent";
+import Modal from "../../components/Modal";
 
 const PostEdit = () => {
   const { postId } = useParams();
-  console.log(postId);
+  const { userName } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   console.log(detailPostData);
   const [categoryData, setCategoryData] = useState("");
   const [categoryId, setCategoryId] = useRecoilState(categoryIdStore);
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   console.log(currentCategoryId);
+  const currentUser = useRecoilValue(currentUserStore);
   const [post, setPost] = useState({
-    content: detailPostData.content,
     categoryId: currentCategoryId,
+    content: detailPostData.content,
   });
 
   const editorRef = useRef();
+  const navigate = useNavigate();
+
+  const isUserSame = currentUser.name === userName;
 
   const setEditorValue = () => {
     const editorContent = editorRef.current.getInstance().getMarkdown();
@@ -44,12 +53,14 @@ const PostEdit = () => {
     axios
       .patch(
         `https://eung-ae-back.kro.kr/post/${detailPostData.postId}`,
-        post,
+        { categoryId: currentCategoryId, content: post.content },
         { withCredentials: true }
       )
-      .then((res) => alert("성공"), console.log(post))
+      .then((res) => {
+        alert("성공");
+        navigate(-1);
+      })
       .catch((err) => console.log(err));
-    console.log(post);
   };
   const initDetailPostData = async () => {
     const response = await axios.get(
@@ -69,20 +80,21 @@ const PostEdit = () => {
           filePath: response.data.filePath,
         };
       });
-      setCategoryId(2);
+      setCategoryId(response.data.category.categoryId);
       setIsLoading(false);
     }
   };
 
+  const handleModalClose = () => setIsModalOpen(false);
+
   useEffect(() => {
     initDetailPostData();
-    console.log(detailPostData);
   }, []);
 
   console.log(`${detailPostData.content}`);
   return (
     <>
-      {!isLoading ? (
+      {isUserSame && !isLoading ? (
         <>
           <img src={detailPostData.filePath} />
           <CategoryMenu
@@ -115,8 +127,11 @@ const PostEdit = () => {
             ]}
             useCommandShortcut={true}
           />
-          <button onClick={handleSubmit}>글쓰기</button>
-          <div className="form-group row">
+          <button onClick={handleSubmit}>수정하기</button>
+          <ButtonWrapper>
+            <Button text={"수정하기"} onClick={handleSubmit} />
+          </ButtonWrapper>
+          {/*<div className="form-group row">
             <label htmlFor="inputFile" className="col-sm-2 col-form-label">
               <strong>첨부 파일</strong>
             </label>
@@ -133,10 +148,12 @@ const PostEdit = () => {
                 </label>
               </div>
             </div>
-          </div>
+          </div>*/}
         </>
       ) : (
-        <div>로딩 중</div>
+        <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+          <ModalContent type={2} />
+        </Modal>
       )}
     </>
   );

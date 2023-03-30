@@ -26,14 +26,15 @@ import { currentCategoryIdStore } from "../../store/category";
 import { PostTitle } from "./styled";
 import { DetailPostData } from "../../type";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
+import Button from "../../components/Button";
+import { currentUserStore } from "../../store/user";
+import Modal from "../../components/Modal";
+import ModalContent from "../../components/Modal/ModalContent";
 
 const PostWrite = () => {
-  const [content, setContent] = useState();
-  const [category, setCategory] = useState("");
-
   const [files, setFiles] = useState();
-  /* const [detailPostData, setDetailPostData] = useState(DetailPostData);
-  console.log(detailPostData);*/
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [post, setPost] = useState({
     content: "",
     title: "",
@@ -45,6 +46,7 @@ const PostWrite = () => {
   });
 
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
+  const currentUser = useRecoilValue(currentUserStore);
 
   const editorRef = useRef();
 
@@ -77,23 +79,23 @@ const PostWrite = () => {
     console.log(formData);
   };
 
-  const fileInput = React.useRef(null);
+  /*const fileInput = React.useRef(null);*/
 
-  const handleButtonClick = (e) => {
+  /*const handleButtonClick = (e) => {
     fileInput.current.click();
-  };
+  };*/
 
-  const handleChangeFile = (e) => {
+  /*const handleChangeFile = (e) => {
     const fileReader = new FileReader();
     const file = e.target.files[0];
     setFiles(e.target.files[0]);
     fileReader.readAsBinaryString(file);
-    /*setPost((prev) => {
+    /!*setPost((prev) => {
       return {
         ...prev,
         fileName: file.name,
       };
-    });*/
+    });*!/
     fileReader.onload = (e) => {
       setPost((prev) => {
         return {
@@ -102,9 +104,9 @@ const PostWrite = () => {
         };
       });
     };
-  };
+  };*/
 
-  const handleFileSubmit = useCallback(async () => {
+  /*const handleFileSubmit = useCallback(async () => {
     if (!files) return;
 
     const formData = new FormData();
@@ -124,69 +126,58 @@ const PostWrite = () => {
         },
       }
     );
-  }, [files]);
+  }, [files]);*/
 
-  const handleFileUpload = (e) => {
+  /*const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setFiles([...files, { uploadedFile: file }]);
   };
+  console.log(files);*/
 
-  console.log(files);
+  const handleModalClose = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    !currentUser.email && setIsModalOpen(true);
+    console.log(currentUser);
+  });
 
   return (
     <>
-      <CategoryMenu onClick={setCategory} categoryName={category} />
-      <PostTitle
-        placeholder="제목을 입력하세요."
-        value={post.title}
-        onChange={(e) => {
-          setPost(() => {
-            return { ...post, title: e.target.value };
-          });
-        }}
-      />
-      <Editor
-        initialValue="내용을 적어주세요."
-        previewStyle="vertical"
-        height="400px"
-        initialEditType="wysiwyg"
-        ref={editorRef}
-        onChange={setEditorValue}
-        plugins={[
-          colorSyntax,
-          [codeSyntaxHighlight, { highlighter: Prism }],
-          chart,
-          tableMergedCell,
-          uml,
-        ]}
-        useCommandShortcut={true}
-      />
-      <button onClick={handleSubmit}>글쓰기</button>
-      {/*<header th:insert="common/header.html"></header>*/}
-      {/*<div className="container">
-        <form
-          name="file"
-          encType={"multipart/form-data"}
-          onSubmit={handleFileSubmit}
-        >
-          <input type={"file"} name={"file"} onChange={handleFileUpload} />
-        </form>
-      </div>
-      <button onClick={handleButtonClick}>파일 업로드</button>
-      <input
-        type="file"
-        ref={fileInput}
-        onChange={handleChangeFile}
-        style={{ display: "none" }}
-      />*/}
-      {/*<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-      <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-      <div>
-        $('.custom-file-input').on('change', function () {
-        var fileName = $(this).val().split('\\').pop();
-        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
-      });
-      </div>*/}
+      {currentUser.email ? (
+        <>
+          <CategoryMenu />
+          <PostTitle
+            placeholder="제목을 입력하세요."
+            value={post.title}
+            onChange={(e) => {
+              setPost(() => {
+                return { ...post, title: e.target.value };
+              });
+            }}
+          />
+          <Editor
+            initialValue="내용을 적어주세요."
+            previewStyle="vertical"
+            height="400px"
+            initialEditType="wysiwyg"
+            ref={editorRef}
+            onChange={setEditorValue}
+            plugins={[
+              colorSyntax,
+              [codeSyntaxHighlight, { highlighter: Prism }],
+              chart,
+              tableMergedCell,
+              uml,
+            ]}
+            useCommandShortcut={true}
+          />
+          <Button text={"글쓰기"} onClick={handleSubmit} />
+        </>
+      ) : (
+        <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+          <ModalContent type={2} />
+        </Modal>
+      )}
     </>
   );
 };

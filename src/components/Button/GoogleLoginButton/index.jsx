@@ -24,7 +24,6 @@ const GoogleLoginBuuton = () => {
 
   const logoutHandler = () => {
     setUser(UserData);
-    setIsModalOpen(true);
   };
 
   const handleModalClose = () => setIsModalOpen(false);
@@ -40,12 +39,9 @@ const GoogleLoginBuuton = () => {
         </a>
       ) : (
         <>
-          <Button type={"로그아웃"} onClick={logoutHandler} />
+          <Button text={"로그아웃"} onClick={logoutHandler} />
           <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-            <ModalContent
-              content={"로그아웃 되었습니다."}
-              buttonText={"확인"}
-            />
+            <ModalContent type={1} />
           </Modal>
         </>
       )}
