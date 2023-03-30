@@ -7,7 +7,7 @@ const PageBar = ({ page, count, onChange }) => {
     <Pagination
       activePage={page}
       itemsCountPerPage={4}
-      totalItemsCount={count - 1}
+      totalItemsCount={count === 1 ? count : count - 1}
       pageRangeDisplayed={5}
       prevPageText={"<"}
       nextPageText={">"}

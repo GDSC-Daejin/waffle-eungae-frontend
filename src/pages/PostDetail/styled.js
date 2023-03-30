@@ -53,11 +53,19 @@ export const PostAuthorWrapper = styled.div`
 `;
 export const PostAuthor = styled.div`
   margin-right: 10px;
-  font-size: ${fontSizes.textM};
+  font-size: ${fontSizes.textL};
+  color: ${primaryColor.green600};
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+  &:hover {
+    border-bottom: 1.5px solid ${primaryColor.green600};
+  }
 `;
 export const PostDate = styled.div`
   color: #8b95a1;
   font-size: ${fontSizes.textS};
+  font-weight: 700;
 `;
 export const PostIconWrapper = styled.div`
   position: absolute;

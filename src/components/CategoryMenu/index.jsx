@@ -55,7 +55,7 @@ const CategoryMenu = ({ setPost }) => {
     category.categoryName !== "" &&
       axios
         .patch(
-          `https://eung-ae-back.kro.kr/category${currentCategoryId}`,
+          `https://eung-ae-back.kro.kr/category/${currentCategoryId}`,
           category,
           {
             withCredentials: true,

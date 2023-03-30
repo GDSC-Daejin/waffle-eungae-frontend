@@ -81,12 +81,14 @@ const PostWrite = () => {
             },
           }
         )
-        .then((res) => alert("성공"))
+        .then((res) => {
+          alert("성공적으로 작성되었습니다.");
+          navigate(-1);
+        })
         .catch((err) => console.log(err));
     } else {
       alert("제출 양식에 맞지 않습니다.");
     }
-    navigate(-1);
   };
 
   /*const fileInput = React.useRef(null);*/

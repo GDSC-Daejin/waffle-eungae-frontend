@@ -120,7 +120,13 @@ const PostDetail = () => {
                 <Category>{detailPostData.category.categoryName}</Category>
                 <PostTitle>{detailPostData.title}</PostTitle>
                 <PostAuthorWrapper>
-                  <PostAuthor>{detailPostData.member.name}</PostAuthor>
+                  <PostAuthor
+                    onClick={() =>
+                      navigate(`/${detailPostData.member.memberId}/post`)
+                    }
+                  >
+                    {detailPostData.member.name}
+                  </PostAuthor>
                   <PostDate>
                     {detailPostData.createDate.substring(0, 10)}
                   </PostDate>
