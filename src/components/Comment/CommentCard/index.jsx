@@ -11,11 +11,7 @@ const CommentCard = ({ data, userId }) => {
   return (
     <>
       <CommentAuthorWrapper>
-        {data.member ? (
-          <CommentAuthor>{data.member.name}</CommentAuthor>
-        ) : (
-          <CommentAuthor>null</CommentAuthor>
-        )}
+        <CommentAuthor>{data.member.name ?? "null"}</CommentAuthor>
         {data.member.memberId === userId && <PostTrashIcon size={"small"} />}
       </CommentAuthorWrapper>
       <Comment>{data.content}</Comment>

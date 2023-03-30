@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Button";
 import styled from "styled-components";
+import { fontSizes } from "../../styles/fontSize";
 
 const ModalBody = styled.div`
   border-radius: 8px;
@@ -11,6 +12,11 @@ const ModalBody = styled.div`
   position: relative;
   padding-block: 12px;
   padding-inline: 24px;
+  z-index: 999;
+  width: 300px;
+  & div {
+    justify-content: flex-end;
+  }
 `;
 
 const modalType = [
@@ -34,7 +40,9 @@ const modalType = [
 const ModalContent = ({ type }) => {
   return (
     <ModalBody>
-      <h1>{modalType[type].content}</h1>
+      <h1 style={{ fontSize: `${fontSizes.textM}`, padding: "10px" }}>
+        {modalType[type].content}
+      </h1>
       <Button
         text={modalType[type].buttonText}
         address={modalType[type].address}

@@ -186,7 +186,7 @@ const PostWrite = () => {
           </ButtonWrapper>
         </>
       ) : (
-        <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+        <Modal isOpen={isModalOpen} onClose={setIsModalOpen}>
           <ModalContent type={2} />
         </Modal>
       )}

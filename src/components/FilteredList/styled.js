@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fontSizes } from "../../styles/fontSize";
 
 export const ListSection = styled.section`
   display: flex;
@@ -36,6 +37,7 @@ export const ContentWrapper = styled.div`
 export const Number = styled.div`
   margin-right: 10px;
   font-weight: bold;
+  font-size: ${fontSizes.textM};
   color: #94969b;
 `;
 export const Content = styled.p`

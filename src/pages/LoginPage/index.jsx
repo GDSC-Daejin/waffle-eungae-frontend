@@ -45,7 +45,7 @@ const LoginPage = () => {
   }, []);
 
   return (
-    <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+    <Modal isOpen={isModalOpen} onClose={setIsModalOpen}>
       <ModalContent type={0} />
     </Modal>
   );

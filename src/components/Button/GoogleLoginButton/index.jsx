@@ -32,9 +32,9 @@ const GoogleLoginBuuton = () => {
       ) : (
         <>
           <Button text={"로그아웃"} onClick={logoutHandler} />
-          <Modal isOpen={isModalOpen} onClose={handleModalClose}>
+          {/*<Modal isOpen={isModalOpen} onClose={handleModalClose}>
             <ModalContent type={1} />
-          </Modal>
+          </Modal>*/}
         </>
       )}
     </LoginButtonWrapper>

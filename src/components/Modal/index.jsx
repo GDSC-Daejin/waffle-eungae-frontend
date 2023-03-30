@@ -18,7 +18,11 @@ const Modal = ({ children, isOpen, onClose, selector = "#modal-root" }) => {
     >
       <Portal selector={selector}>
         <Overlay>
-          <Dim onClick={onClose} />
+          <Dim
+            onClick={() => {
+              onClose(false);
+            }}
+          />
           <Container>{children}</Container>
         </Overlay>
       </Portal>
