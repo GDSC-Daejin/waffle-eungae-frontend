@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 //보통 웹사이트에서 사용하는 Container 사이즈입니다.
 
-export const LayoutContainers = styled.div`
+export const LayoutContainer = styled.div`
   position: relative;
   width: 100%;
   margin: 0 auto;
@@ -10,14 +10,10 @@ export const LayoutContainers = styled.div`
   flex: 1;
 `;
 export const ContainerInner = styled.div`
-  width: 1050px;
-`;
-export const ContainerInners = styled.div`
   width: 92%;
   height: 100%;
   max-width: 1050px;
   margin: 0 auto;
-  padding: 0 auto;
 `;
 export const ArticleWrapper = styled.div`
   display: flex;
@@ -28,7 +24,12 @@ export const MainArticle = styled.article`
   box-sizing: inherit;
   flex: 1;
   min-width: 600px;
+  min-height: 745px;
 `;
+export const PostListWrapper = styled.div`
+  min-height: 745px;
+`;
+
 export const SideArticle = styled.div`
   width: 384px;
   min-width: 250px;

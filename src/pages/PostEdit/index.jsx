@@ -20,7 +20,7 @@ import Modal from "../../components/Modal";
 
 const PostEdit = () => {
   const { postId } = useParams();
-  const { userName } = useParams();
+  const { userId } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,32 +35,39 @@ const PostEdit = () => {
     categoryId: currentCategoryId,
     content: detailPostData.content,
   });
+  const [content, setContent] = useState("");
 
   const editorRef = useRef();
   const navigate = useNavigate();
 
-  const isUserSame = currentUser.name === userName;
+  const isUserSame = currentUser.id === userId;
 
   const setEditorValue = () => {
     const editorContent = editorRef.current.getInstance().getMarkdown();
-    setPost(() => {
+    /*setPost(() => {
       return { ...post, content: editorContent };
-    });
+    });*/
+    setContent(editorContent);
   };
 
   // post put 기능
   const handleSubmit = () => {
-    axios
-      .patch(
-        `https://eung-ae-back.kro.kr/post/${detailPostData.postId}`,
-        { categoryId: currentCategoryId, content: post.content },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        alert("성공");
-        navigate(-1);
-      })
-      .catch((err) => console.log(err));
+    if (content !== "") {
+      axios
+        .patch(
+          `https://eung-ae-back.kro.kr/post/${detailPostData.postId}`,
+          { categoryId: currentCategoryId, content: content },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          alert("성공");
+          navigate(-1);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert("제출 양식에 맞지 않습니다.");
+    }
+    navigate(-1);
   };
   const initDetailPostData = async () => {
     const response = await axios.get(
@@ -80,6 +87,7 @@ const PostEdit = () => {
           filePath: response.data.filePath,
         };
       });
+      setContent(response.data.content);
       setCategoryId(response.data.category.categoryId);
       setIsLoading(false);
     }

@@ -9,6 +9,8 @@ import {
   MyPostAuthor,
   PostThumbnailWrapper,
   PostTextWrapper,
+  EmptyBox,
+  EmptyText,
 } from "../MyPost/styled";
 import LikeIcon from "../../assets/icons/LikeIcon";
 import CommentIcon from "../../assets/icons/CommentIcon";
@@ -20,6 +22,7 @@ import {
   ContainerInners,
   LayoutContainers,
   MainArticle,
+  PostListWrapper,
   SideArticle,
 } from "../../styles/layout";
 import PostThumbnail from "../../assets/PostThumbnail";
@@ -38,13 +41,12 @@ const MyPost = () => {
   const currentCategoryId = useRecoilValue(currentCategoryIdStore);
   const [isLoading, setIsLoading] = useState(true);
   const [postList, setPostList] = useState([]);
-  console.log(postList);
+  console.log(currentCategoryId);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const handlePageChange = (page) => {
     setPage(page);
   };
-  console.log(`count: ${count}, page: ${page}`);
 
   const navigate = useNavigate();
 
@@ -53,10 +55,19 @@ const MyPost = () => {
     const response = await axios.get(
       `https://eung-ae-back.kro.kr/categoryPost/${currentCategoryId}`
     );
-    console.log(response);
+    if (response.status === 200) {
+      setCount(response.data.content.length);
+    }
+  };
+
+  const initPostDataByPage = async () => {
+    const response = await axios.get(
+      `https://eung-ae-back.kro.kr/categoryPost/${currentCategoryId}?page=${
+        page - 1
+      }&size=5`
+    );
     if (response.status === 200) {
       setPostList(response.data.content);
-      setCount(response.data.content.length);
       setIsLoading(false);
       console.log(response.data);
     }
@@ -64,6 +75,7 @@ const MyPost = () => {
 
   useEffect(() => {
     initPostData();
+    initPostDataByPage();
     setIsLoading(true);
   }, [currentCategoryId, page]);
 
@@ -73,39 +85,47 @@ const MyPost = () => {
       {!isLoading ? (
         <ArticleWrapper>
           <MainArticle>
-            {postList.map((data, id) => (
-              <PostBox key={id}>
-                <PostThumbnailWrapper>
-                  <PostThumbnail />
-                </PostThumbnailWrapper>
-                <PostTextWrapper>
-                  <MyPostTitle
-                    onClick={() => {
-                      navigate(`/post/${data.member.name}/${data.postId}`);
-                    }}
-                  >
-                    {data.title}
-                  </MyPostTitle>
-                  {/*<MyPostContent>{data.content}</MyPostContent>*/}
-                  <MyPostAuthor>{data.member.name}</MyPostAuthor>
-                  <PostInformationWrapper>
-                    <PostLeftInformation>
-                      <PostIconWrapper>
-                        <LikeIcon />
-                        <PostInformation>{data.likeCount}</PostInformation>
-                      </PostIconWrapper>
-                      <PostIconWrapper>
-                        <EyeIcon />
-                        <PostInformation>{data.viewCount}</PostInformation>
-                      </PostIconWrapper>
-                    </PostLeftInformation>
-                    <PostInformation>
-                      {data.createDate.substring(0, 10)}
-                    </PostInformation>
-                  </PostInformationWrapper>
-                </PostTextWrapper>
-              </PostBox>
-            ))}
+            {count !== 0 ? (
+              <PostListWrapper>
+                {postList.map((data, id) => (
+                  <PostBox key={id}>
+                    <PostThumbnailWrapper>
+                      <PostThumbnail />
+                    </PostThumbnailWrapper>
+                    <PostTextWrapper>
+                      <MyPostTitle
+                        onClick={() => {
+                          navigate(`/post/${data.member.name}/${data.postId}`);
+                        }}
+                      >
+                        {data.title}
+                      </MyPostTitle>
+                      {/*<MyPostContent>{data.content}</MyPostContent>*/}
+                      <MyPostAuthor>{data.member.name}</MyPostAuthor>
+                      <PostInformationWrapper>
+                        <PostLeftInformation>
+                          <PostIconWrapper>
+                            <LikeIcon />
+                            <PostInformation>{data.likeCount}</PostInformation>
+                          </PostIconWrapper>
+                          <PostIconWrapper>
+                            <EyeIcon />
+                            <PostInformation>{data.viewCount}</PostInformation>
+                          </PostIconWrapper>
+                        </PostLeftInformation>
+                        <PostInformation>
+                          {data.createDate.substring(0, 10)}
+                        </PostInformation>
+                      </PostInformationWrapper>
+                    </PostTextWrapper>
+                  </PostBox>
+                ))}
+              </PostListWrapper>
+            ) : (
+              <EmptyBox>
+                <EmptyText>작성된 게시물이 없습니다.</EmptyText>
+              </EmptyBox>
+            )}
             <PageBar page={page} count={count} onChange={setPage} />
           </MainArticle>
           <SideArticle>

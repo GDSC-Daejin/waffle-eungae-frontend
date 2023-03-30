@@ -11,16 +11,8 @@ import Modal from "../../Modal";
 
 const GoogleLoginBuuton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen);
   const [user, setUser] = useRecoilState(userStore);
   const currentUser = useRecoilValue(currentUserStore);
-  console.log(currentUser);
-
-  const goLogin = () => {
-    axios.post(
-      "https://eung-ae-back.kro.kr/oauth2/authorization/google?redirect_uri=https://waffle-eungae-frontend.vercel.app/login/oauth2/code/google"
-    );
-  };
 
   const logoutHandler = () => {
     setUser(UserData);

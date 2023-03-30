@@ -23,13 +23,14 @@ import axios from "axios";
 import CategoryMenu from "../../components/CategoryMenu";
 import { useRecoilValue } from "recoil";
 import { currentCategoryIdStore } from "../../store/category";
-import { PostTitle } from "./styled";
+import { ButtonWrapper, PostTitle } from "./styled";
 import { DetailPostData } from "../../type";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import Button from "../../components/Button";
 import { currentUserStore } from "../../store/user";
 import Modal from "../../components/Modal";
 import ModalContent from "../../components/Modal/ModalContent";
+import { useNavigate } from "react-router-dom";
 
 const PostWrite = () => {
   const [files, setFiles] = useState();
@@ -49,6 +50,7 @@ const PostWrite = () => {
   const currentUser = useRecoilValue(currentUserStore);
 
   const editorRef = useRef();
+  const navigate = useNavigate();
 
   const setEditorValue = () => {
     const editorContent = editorRef.current.getInstance().getMarkdown();
@@ -60,23 +62,31 @@ const PostWrite = () => {
   // post put 기능
   const handleSubmit = async () => {
     const formData = new FormData();
-    formData.append("content", post.content);
-    formData.append("title", post.title);
-    /*formData.append("fileName", post.fileName);
-    formData.append("filePath", post.filePath);
-    formData.append("file", post.file);*/
-    formData.append("viewCount", post.viewCount);
-    formData.append("likeCount", post.likeCount);
-    axios
-      .post(`https://eung-ae-back.kro.kr/post/${currentCategoryId}`, formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => alert("성공"))
-      .catch((err) => console.log(err));
-    console.log(formData);
+    if (post.content !== "" && post.title !== "") {
+      formData.append("content", post.content);
+      formData.append("title", post.title);
+      /*formData.append("fileName", post.fileName);
+      formData.append("filePath", post.filePath);
+      formData.append("file", post.file);*/
+      formData.append("viewCount", post.viewCount);
+      formData.append("likeCount", post.likeCount);
+      axios
+        .post(
+          `https://eung-ae-back.kro.kr/post/${currentCategoryId}`,
+          formData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((res) => alert("성공"))
+        .catch((err) => console.log(err));
+    } else {
+      alert("제출 양식에 맞지 않습니다.");
+    }
+    navigate(-1);
   };
 
   /*const fileInput = React.useRef(null);*/
@@ -171,7 +181,9 @@ const PostWrite = () => {
             ]}
             useCommandShortcut={true}
           />
-          <Button text={"글쓰기"} onClick={handleSubmit} />
+          <ButtonWrapper>
+            <Button text={"글쓰기"} onClick={handleSubmit} />
+          </ButtonWrapper>
         </>
       ) : (
         <Modal isOpen={isModalOpen} onClose={handleModalClose}>

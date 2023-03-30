@@ -7,8 +7,7 @@ import {
 } from "../../../pages/PostDetail/styled";
 import PostTrashIcon from "../../../assets/icons/PostTrashIcon";
 
-const CommentCard = ({ data, isUserEqual }) => {
-  console.log(data.member);
+const CommentCard = ({ data, userId }) => {
   return (
     <>
       <CommentAuthorWrapper>
@@ -17,7 +16,7 @@ const CommentCard = ({ data, isUserEqual }) => {
         ) : (
           <CommentAuthor>null</CommentAuthor>
         )}
-        {isUserEqual && <PostTrashIcon size={"small"} />}
+        {data.member.memberId === userId && <PostTrashIcon size={"small"} />}
       </CommentAuthorWrapper>
       <Comment>{data.content}</Comment>
       <CommentDate>{data.createDate.substring(0, 10)}</CommentDate>

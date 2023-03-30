@@ -39,13 +39,14 @@ const config = {
 
 const PostDetail = () => {
   const { postId } = useParams();
-  const { userName } = useParams();
+  const { userId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [detailPostData, setDetailPostData] = useState(DetailPostData);
   const [commentList, setCommentList] = useState(DetailCommentListData);
   const currentUser = useRecoilValue(currentUserStore);
 
-  const isUserEqual = currentUser.email === detailPostData.member.email;
+  const isPostUserSame =
+    currentUser.memberId === detailPostData.member.memberId;
 
   const navigate = useNavigate();
 
@@ -70,6 +71,7 @@ const PostDetail = () => {
       });
       setIsLoading(false);
     }
+    console.log(response);
   };
 
   const initComment = async () => {
@@ -77,26 +79,30 @@ const PostDetail = () => {
     if (response.status === 200) {
       setCommentList(response.data);
     }
-    console.log(response.data);
   };
 
   const addLikeHandler = async () => {
-    await axios.post(
-      `https://eung-ae-back.kro.kr/post/${postId}/like`,
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-    initDetailPostData();
+    if (currentUser.email) {
+      await axios.post(
+        `https://eung-ae-back.kro.kr/post/${postId}/like`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      initDetailPostData();
+    } else {
+      alert("로그인이 필요합니다.");
+    }
   };
 
-  const removeHander = async () => {
+  const removeHandler = async () => {
     await axios
       .delete(`https://eung-ae-back.kro.kr/post/${postId}`, {
         withCredentials: true,
       })
       .then((res) => alert("성공"));
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -119,7 +125,7 @@ const PostDetail = () => {
                     {detailPostData.createDate.substring(0, 10)}
                   </PostDate>
                   <PostIconWrapper>
-                    {isUserEqual && (
+                    {isPostUserSame && (
                       <>
                         <PostIcon
                           onClick={() =>
@@ -130,7 +136,7 @@ const PostDetail = () => {
                         >
                           <PostEditIcon />
                         </PostIcon>
-                        <PostIcon onClick={removeHander}>
+                        <PostIcon onClick={removeHandler}>
                           <PostTrashIcon />
                         </PostIcon>
                       </>
@@ -149,14 +155,14 @@ const PostDetail = () => {
             <CommentCount>댓글 {commentList.length}</CommentCount>
             {commentList.map((data, id) => (
               <CommentWrapper key={id}>
-                <CommentCard data={data} isUserEqual={isUserEqual} />
+                <CommentCard data={data} userId={currentUser.memberId} />
               </CommentWrapper>
             ))}
             <CommentInput postId={postId} initData={initComment} />
           </CommentSection>
         </PostDetailContainer>
       ) : (
-        <div>로딩 중</div>
+        <div></div>
       )}
     </>
   );

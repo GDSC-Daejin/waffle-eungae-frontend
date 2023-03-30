@@ -41,7 +41,7 @@ const Skeleton = ({
   rounded,
   count,
   unit = "px",
-  color = "#9f9f9f",
+  color = "#E5E8EB",
   style,
 }) => {
   const content = useMemo(
