@@ -102,7 +102,7 @@ const CategoryMenu = ({ setPost }) => {
               </Category>
             ))}
           </CategoryMenuWrapper>
-          <input
+          {/*<input
             value={category.categoryName}
             onChange={(e) =>
               setCategory(() => {
@@ -113,7 +113,7 @@ const CategoryMenu = ({ setPost }) => {
           />
           <button onClick={addCategoryHandler}>추가하기</button>
           <button onClick={removeCategoryHandler}>삭제하기</button>
-          <button onClick={updateCategoryHandler}>수정하기</button>
+          <button onClick={updateCategoryHandler}>수정하기</button>*/}
         </>
       ) : (
         <CategorySkeleton />

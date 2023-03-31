@@ -129,8 +129,6 @@ const MyPost = () => {
             <PageBar page={page} count={count} onChange={setPage} />
           </MainArticle>
           <SideArticle>
-            {/*<BestMembers></BestMembers>
-            <FilteredPosts></FilteredPosts>*/}
             <FilteredList />
           </SideArticle>
         </ArticleWrapper>
