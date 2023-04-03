@@ -3,7 +3,6 @@
 ## Getting Started
 
 ```bash
-> git clone https://github.com/GDSC-Daejin/react-todo-vite-js
-> yarn && yarn install
-> yarn dev && vite
+> npm install --force
+> npm start || yarn start
 ```
